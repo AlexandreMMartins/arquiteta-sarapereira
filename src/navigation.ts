@@ -4,7 +4,7 @@ export const headerData = {
   links: [
     {
       text: 'Sobre',
-      href: '#contactos',
+      href: '#sobre',
     },
     {
       text: 'Serviços',
@@ -93,8 +93,8 @@ export const headerData = {
       // ],
     },
     {
-      text: 'Questoes Frequentes',
-      href: '#faqs',
+      //text: 'Questoes Frequentes',
+      //href: '#faqs',
       // links: [
       //   {
       //     text: 'Blog List',
@@ -121,8 +121,8 @@ export const headerData = {
     
   ],
   socialLinks: [
-    { ariaLabel: 'Instagram', icon: 'tabler:brand-instagram', href: 'https://www.instagram.com/' },
-    { ariaLabel: 'Facebook', icon: 'tabler:brand-facebook', href: '#' },
+    { ariaLabel: 'Instagram', icon: 'tabler:brand-instagram', href: 'https://www.instagram.com/sarapereira.arquitetura'},
+    //{ ariaLabel: 'Facebook', icon: 'tabler:brand-facebook', href: '#' },
   ],
   // actions: [{ text: 'Download', href: 'https://github.com/onwidget/astrowind', target: '_blank' }],
 };

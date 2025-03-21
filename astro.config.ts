@@ -81,10 +81,8 @@ export default defineConfig({
   },
 
   vite: {
-    resolve: {
-      alias: {
-        '~': path.resolve(__dirname, './src'),
-      },
+    ssr: {
+      noExternal: ['swiper'], // ✅ Fixes Swiper module resolution
     },
   },
 });
