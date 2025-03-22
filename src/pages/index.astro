@@ -34,6 +34,28 @@ const metadata = {
   </Hero>
  -->
 
+  <Content
+    id="sobre"
+    items={[
+      {
+        title: 'Sobre mim',
+        description: `Desde pequena que o meu sonho era criar e mudar casas, tanto que as minhas brincadeiras preferidas eram construir cabanas e fazer legos.<br/><br/>
+        Após ingressar no curso de arquitetura e fazer erasmus em Veneza, aprendi que é necessário valorizar e respeitar o que está feito.<br/><br/>
+        Deste modo procuro inovar seempre, mas com respeito no pré-existente.`,
+      },
+    ]}
+    image={{
+      src: '~/assets/images/sobre.jpeg',
+      alt: 'Steps image',
+    }}
+  >
+    
+
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+    </Fragment>
+  </Content>
+
   <!-- Features Widget *************** -->
 
   <Features
@@ -145,27 +167,7 @@ const metadata = {
 
 
 
- <Content
-    id="sobre"
-    items={[
-      {
-        title: 'Sobre mim',
-        description: `Desde pequena que o meu sonho era criar e mudar casas, tanto que as minhas brincadeiras preferidas eram construir cabanas e fazer legos.<br/><br/>
-        Após ingressar no curso de arquitetura e fazer erasmus em Veneza, aprendi que é necessário valorizar e respeitar o que está feito.<br/><br/>
-        Deste modo procuro inovar seempre, mas com respeito no pré-existente.`,
-      },
-    ]}
-    image={{
-      src: '~/assets/images/sobre.jpeg',
-      alt: 'Steps image',
-    }}
-  >
-    
 
-    <Fragment slot="bg">
-      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
-    </Fragment>
-  </Content>
 
   <!-- FAQs Widget ******************* -->
 <!--
