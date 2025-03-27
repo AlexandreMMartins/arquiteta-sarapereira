@@ -28,9 +28,9 @@ export const headerData = {
       //   },
       // ],
     },
-    {
-      text: 'Projetos',
-      href: '#projetos',
+    //{
+   //   text: 'Projetos',
+    //  href: '#projetos',
       // links: [
       //   {
       //     text: 'Features (Anchor Link)',
@@ -61,7 +61,7 @@ export const headerData = {
       //     href: getPermalink('/privacy'),
       //   },
       // ],
-    },
+    //},
     {
       text: 'Contactos',
       href: '#contactos',
