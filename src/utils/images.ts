@@ -71,7 +71,7 @@ export const adaptOpenGraphImages = async (
           };
         }
 
-        let _image;
+        let _image: Awaited<ReturnType<typeof unpicOptimizer>>[number] | undefined;
 
         if (
           typeof resolvedImage === 'string' &&

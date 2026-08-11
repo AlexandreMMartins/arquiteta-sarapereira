@@ -1,249 +1,807 @@
 ---
+import { Image } from 'astro:assets';
+import { Icon } from 'astro-icon/components';
+
+import portrait from '~/assets/images/sobre-v2.png';
+import serviceArchitecture from '~/assets/images/services/arquitetura.png';
+import serviceConsulting from '~/assets/images/services/consultoria.png';
+import serviceExecution from '~/assets/images/services/execucao.png';
+import serviceInteriors from '~/assets/images/services/interiores.png';
+import serviceSurvey from '~/assets/images/services/levantamentos.png';
+import serviceRemodel from '~/assets/images/services/remodelacao.png';
 import Layout from '~/layouts/PageLayout.astro';
 
-import Hero from '~/components/widgets/Hero.astro';
-import Note from '~/components/widgets/Note.astro';
-import Features from '~/components/widgets/Features.astro';
-import Features2 from '~/components/widgets/Features2.astro';
-import Steps from '~/components/widgets/Steps.astro';
-import Content from '~/components/widgets/Content.astro';
-import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
-import FAQs from '~/components/widgets/FAQs.astro';
-import Stats from '~/components/widgets/Stats.astro';
-import CallToAction from '~/components/widgets/CallToAction.astro';
-import ProjetosSlider from '../components/widgets/ProjetosSlider.astro';
 const metadata = {
-  title: 'Sara Pereira - Arquitetura',
+  title: 'Sara Pereira — Arquitetura',
+  description:
+    'Projetos de arquitetura, remodelação e interiores em Tomar, pensados para transformar espaços com respeito pelo que já existe.',
   ignoreTitleTemplate: true,
 };
+
+const services = [
+  {
+    number: '01',
+    title: 'Levantamentos arquitetónicos',
+    description: 'Levantamentos rigorosos para reabilitação, ampliação, remodelação e atualização de áreas no IMI.',
+    detail:
+      'Registamos o espaço existente com rigor para criar uma base segura para todas as decisões seguintes. O levantamento pode incluir medição, desenho técnico e organização da informação necessária ao projeto.',
+    highlights: ['Medição do existente', 'Desenhos de levantamento', 'Atualização de áreas'],
+    image: serviceSurvey,
+  },
+  {
+    number: '02',
+    title: 'Projetos de remodelação',
+    description:
+      'Espaços mais funcionais e acolhedores, desenhados a partir da identidade e das qualidades do existente.',
+    detail:
+      'Partimos das qualidades da casa e da forma como é vivida para reorganizar circulações, luz, arrumação e materiais. Cada intervenção procura melhorar o quotidiano sem apagar a memória do lugar.',
+    highlights: ['Estudo de soluções', 'Reorganização funcional', 'Escolha de materiais'],
+    image: serviceRemodel,
+  },
+  {
+    number: '03',
+    title: 'Projetos de arquitetura',
+    description: 'Projetos de raiz adaptados ao lugar, ao orçamento e à forma como cada cliente deseja viver.',
+    detail:
+      'Desenvolvemos o projeto desde o conceito inicial até ao licenciamento, articulando programa, implantação, conforto e linguagem arquitetónica numa solução coerente e possível de construir.',
+    highlights: ['Estudo prévio', 'Licenciamento', 'Coordenação do projeto'],
+    image: serviceArchitecture,
+  },
+  {
+    number: '04',
+    title: 'Projetos de execução',
+    description:
+      'Desenhos técnicos, definição de acabamentos e listas de materiais para uma obra clara e bem preparada.',
+    detail:
+      'Transformamos o projeto em informação precisa para a obra. Detalhes construtivos, mapas de acabamentos e especificações reduzem dúvidas, apoiam orçamentos e protegem a intenção do projeto.',
+    highlights: ['Detalhes construtivos', 'Mapas de acabamentos', 'Listas de materiais'],
+    image: serviceExecution,
+  },
+  {
+    number: '05',
+    title: 'Design de interiores',
+    description: 'Ambientes únicos e coerentes, desenvolvidos em parceria com profissionais de design de interiores.',
+    detail:
+      'Criamos ambientes completos onde mobiliário, iluminação, cor e textura trabalham em conjunto. O objetivo é que cada divisão seja confortável, pessoal e coerente com a arquitetura da casa.',
+    highlights: ['Conceito de interiores', 'Mobiliário e iluminação', 'Paleta de materiais'],
+    image: serviceInteriors,
+  },
+  {
+    number: '06',
+    title: 'Consultoria',
+    description:
+      'Apoio técnico em decisões de remodelação, viabilidade, leitura de PDM e primeiros passos de um projeto.',
+    detail:
+      'Uma sessão de consultoria ajuda a esclarecer possibilidades antes de avançar. Analisamos condicionantes, prioridades e próximos passos para que possa decidir com mais segurança.',
+    highlights: ['Análise de viabilidade', 'Leitura de PDM', 'Orientação inicial'],
+    image: serviceConsulting,
+  },
+];
+
+const steps = [
+  ['Conversamos', 'Percebemos o espaço, as necessidades, o orçamento e aquilo que imagina para o futuro.'],
+  ['Desenhamos', 'Transformamos essas ideias numa proposta clara, funcional e sensível ao lugar.'],
+  ['Acompanhamos', 'Preparamos a execução e ajudamos a manter cada decisão alinhada com o projeto.'],
+];
 ---
 
 <Layout metadata={metadata}>
-  <!-- Hero Widget ******************* -->
- <!--
-  <Hero
-    image={{ src: '~/assets/images/citys.png', alt: 'AstroWind Hero Image' }}> 
-    <Fragment slot="subtitle">
-      <span class="hidden sm:inline">
-        <span class="font-semibold"></span
-      >
-      <span class="block mb-1 sm:hidden font-bold text-blue-600">AstroWind: Production-ready.</span>
-      
-    </Fragment>
-    
-  </Hero>
- -->
+  <section class="hero-shell overflow-hidden">
+    <div
+      class="mx-auto grid min-h-[calc(100vh-72px)] max-w-7xl items-center gap-14 px-5 py-20 md:px-8 lg:grid-cols-[1.2fr_0.8fr] lg:py-24"
+    >
+      <div class="hero-copy relative z-10 max-w-3xl">
+        <p class="eyebrow">Arquitetura · Tomar</p>
+        <h1 class="mt-7 text-[clamp(3.6rem,9vw,8.4rem)] font-medium leading-[0.86] tracking-[-0.065em] text-stone-950">
+          Espaços com<br /> memória e futuro.
+        </h1>
+        <p class="mt-8 max-w-xl text-lg leading-relaxed text-stone-600 md:text-xl">
+          Projetos atentos ao que já existe e à forma como cada pessoa vive — do primeiro esboço ao último detalhe.
+        </p>
+        <div class="mt-10 flex flex-wrap gap-3">
+          <a class="btn btn-primary" href="#contactos">Falar sobre um projeto</a>
+          <a class="btn btn-secondary" href="#servicos">Conhecer os serviços</a>
+        </div>
+      </div>
 
-  <Content
-    id="sobre"
-    items={[
-      {
-        title: 'Sobre mim',
-        description: `Desde pequena que o meu sonho era criar e mudar casas, tanto que as minhas brincadeiras preferidas eram construir cabanas e fazer legos.<br/><br/>
-        Após ingressar no curso de arquitetura e fazer erasmus em Veneza, aprendi que é necessário valorizar e respeitar o que está feito.<br/><br/>
-        Deste modo procuro inovar sempre, mas com respeito no pré-existente.`,
-      },
-    ]}
-    image={{
-      src: '~/assets/images/sobre.jpeg',
-      alt: 'Steps image',
-    }}
-  >
-    
+      <div class="hero-portrait relative mx-auto w-full max-w-md -translate-y-5 lg:max-w-none lg:-translate-y-8">
+        <div
+          class="hero-portrait-frame relative mx-auto aspect-[4/5] w-[88%] overflow-hidden rounded-t-[11rem] bg-[#e9dfd0] shadow-xl shadow-stone-900/10"
+        >
+          <Image
+            src={portrait}
+            alt="Sara Pereira, arquiteta"
+            class="h-full w-full object-cover object-center"
+            widths={[420, 640, 840]}
+            sizes="(max-width: 1024px) 80vw, 32vw"
+            loading="eager"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <Fragment slot="bg">
-      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
-    </Fragment>
-  </Content>
+  <section id="sobre" class="scroll-mt-24 bg-[#1f2825] text-white">
+    <div class="mx-auto grid max-w-7xl gap-12 px-5 py-20 md:px-8 md:py-28 lg:grid-cols-[0.7fr_1.3fr]">
+      <div data-reveal="left">
+        <p class="eyebrow eyebrow-light">Sobre</p>
+        <p class="mt-6 max-w-xs text-sm leading-relaxed text-stone-400">
+          Uma prática próxima, orientada pela curiosidade, pela função e pelo respeito pelo contexto.
+        </p>
+      </div>
+      <div data-reveal="right">
+        <h2 class="max-w-4xl text-4xl font-medium leading-tight tracking-[-0.035em] md:text-6xl">
+          “Desde pequena que o meu sonho era criar e transformar casas.”
+        </h2>
+        <div class="mt-10 grid gap-6 text-base leading-relaxed text-stone-300 md:grid-cols-2 md:text-lg">
+          <p>
+            Da construção de cabanas e dos Legos nasceu uma vontade que se tornou profissão. A formação em arquitetura e
+            a experiência de Erasmus em Veneza reforçaram uma convicção: antes de intervir, é preciso compreender e
+            valorizar o que já está feito.
+          </p>
+          <p>
+            É desse equilíbrio que parte cada projeto — inovar sem apagar, melhorar sem descaracterizar e criar lugares
+            acolhedores, funcionais e profundamente ligados a quem os habita.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <!-- Features Widget *************** -->
+  <section id="servicos" class="scroll-mt-24 bg-[#f3f0e9]">
+    <div class="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
+      <div class="grid gap-8 lg:grid-cols-2 lg:items-end">
+        <div data-reveal="left">
+          <p class="eyebrow">Serviços</p>
+          <h2 class="mt-6 text-4xl font-medium tracking-[-0.04em] text-stone-950 md:text-6xl">
+            Do espaço existente<br /> à ideia construída.
+          </h2>
+        </div>
+        <p data-reveal="right" class="max-w-lg text-lg leading-relaxed text-stone-600 lg:justify-self-end">
+          Cada projeto começa com uma leitura atenta das necessidades, do lugar e dos recursos disponíveis.
+        </p>
+      </div>
 
-  <Features
-    id="features"
-    title="Serviços"
-    subtitle="Desenvolvemos projetos adequados à necessidade de cada cliente. <br/>Desde levantamentos arquitetonicos, projetos de remodelação, projetos de raíz, projetos de execução e design de interiores"
-    items={[
-      {
-        title: 'Levantamentos arquitetonicos',
-        description:
-          'O levantamento arquitetónico é fundamental para a realização de intervenções em edifícios, como reabilitação, ampliação e remodelação.<br/> E ainda, para efeitos de atualização do modelo 1 do IMI (atualização de áreas)',
-      },
-      {
-        title: 'Projetos de remodelação',
-        description:
-          'Sempre com a premissa de respeitar o existente, procuramos desenvolver projetos que se transformem em espaços mais funcionais e e acolhedores',
-      },
-      {
-        title: 'Projetos de arquitetura',
-        description:
-          'Elaboramos projetos de raíz adaptados às necessidades de cada cliente, em que cada projeto seja um transformar de um sonho em realidade',
-      },
-      {
-        title: 'Projetos de execução',
-        description:
-          'Elaboramos projetos de execução que consistem na elaboração de desenhos técnicos, assim como escolha de acabamentos e execução de lista de materiais',
-      },
-      {
-        title: 'Design de interiores',
-        description:
-          "Em parceria com uma designer de interiores, desenvolvemos projetos de decoração, para que cada espaço se torne único e acolhedor",
-      },
-      {
-        title: 'Consultoria',
-        description:
-          'Desde projetos de remodelação a interpretações de pdm'
-      },
-    ]}
-  />
+      <div class="mt-14 grid border-t border-stone-300 md:grid-cols-2 lg:grid-cols-3">
+        {
+          services.map((service, index) => (
+            <a
+              href="#detalhes-servicos"
+              data-service-trigger={index}
+              data-reveal="up"
+              style={`--reveal-delay: ${(index % 3) * 90}ms`}
+              class="service-card group block border-b border-stone-300 py-8 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8c4c2f] focus-visible:ring-inset md:px-7 md:even:border-l lg:border-l lg:first:border-l-0"
+              aria-label={`Ver detalhes de ${service.title}`}
+            >
+              <div class="flex items-start justify-end">
+                <Icon
+                  name="tabler:arrow-down-right"
+                  class="h-5 w-5 text-stone-400 transition group-hover:translate-x-1 group-hover:translate-y-1 group-hover:text-[#ab5c36]"
+                />
+              </div>
+              <h3 class="mt-10 text-2xl font-medium tracking-tight text-stone-900">{service.title}</h3>
+              <p class="mt-4 leading-relaxed text-stone-600">{service.description}</p>
+              <span class="mt-6 inline-block text-sm font-semibold text-[#8c4c2f] opacity-0 transition group-hover:opacity-100 group-focus-visible:opacity-100">
+                Explorar serviço
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
 
-  <!-- Content Widget **************** -->
-<!--
-<section id="projetos" class="inset-0 bg-blue-50 dark:bg-transparent">
-  <div class="container mx-auto">
-    <h2 class="text-3xl font-bold text-center text-gray-800 dark:text-white mb-6">Projetos</h2>
-    <ProjetosSlider />
-  </div>
-</section>
--->
+  <section id="detalhes-servicos" class="scroll-mt-20 bg-[#1f2825] text-white" data-services-carousel>
+    <div class="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
+      <div class="mb-10 flex items-end justify-between gap-6" data-reveal="up">
+        <div>
+          <p class="eyebrow eyebrow-light">Em detalhe</p>
+          <p class="mt-4 max-w-md text-stone-400">
+            Explore cada serviço e descubra como podemos acompanhar o seu projeto.
+          </p>
+        </div>
+        <div class="hidden items-center gap-3 sm:flex">
+          <button class="carousel-arrow" type="button" data-carousel-prev aria-label="Serviço anterior">
+            <Icon name="tabler:arrow-left" class="h-5 w-5" />
+          </button>
+          <button class="carousel-arrow" type="button" data-carousel-next aria-label="Serviço seguinte">
+            <Icon name="tabler:arrow-right" class="h-5 w-5" />
+          </button>
+        </div>
+      </div>
 
-  <!-- HighlightedPosts Widget ******* -->
- <!--
-  <BlogLatestPosts
-    title="Find out more content in our Blog"
-    information={`The blog is used to display AstroWind documentation.
-                        Each new article will be an important step that you will need to know to be an expert in creating a website using Astro + Tailwind CSS.
-                        Astro is a very interesting technology. Thanks.
-                `}
-  />
--->
+      <div class="service-carousel-stage" data-reveal="up" style="--reveal-delay: 100ms">
+        {
+          services.map((service, index) => (
+            <article
+              data-service-slide
+              hidden={index !== 0}
+              aria-roledescription="slide"
+              aria-label={`${index + 1} de ${services.length}`}
+            >
+              <div class="grid overflow-hidden rounded-sm bg-[#29332f] lg:grid-cols-[1.05fr_0.95fr]">
+                <div class="aspect-[4/3] overflow-hidden lg:aspect-auto lg:min-h-[34rem]">
+                  <Image
+                    src={service.image}
+                    alt={`Ambiente representativo de ${service.title.toLowerCase()}`}
+                    class="h-full w-full object-cover"
+                    widths={[640, 960, 1280]}
+                    sizes="(max-width: 1024px) 100vw, 55vw"
+                  />
+                </div>
+                <div class="flex flex-col justify-between p-7 md:p-10 lg:p-14">
+                  <div>
+                    <h3 class="text-3xl font-medium leading-tight tracking-[-0.035em] md:text-5xl">{service.title}</h3>
+                    <p class="mt-7 text-base leading-relaxed text-stone-300 md:text-lg">{service.detail}</p>
+                    <ul class="mt-8 space-y-3 border-t border-white/15 pt-6">
+                      {service.highlights.map((highlight) => (
+                        <li class="flex items-center gap-3 text-sm text-stone-300 md:text-base">
+                          <span class="h-1.5 w-1.5 rounded-full bg-[#dba480]" />
+                          {highlight}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <a
+                    class="mt-10 inline-flex items-center gap-2 font-semibold text-[#e6b897] transition hover:gap-3"
+                    href="#contactos"
+                  >
+                    Falar sobre este serviço
+                    <Icon name="tabler:arrow-right" class="h-5 w-5" />
+                  </a>
+                </div>
+              </div>
+            </article>
+          ))
+        }
+      </div>
 
-  <!-- Features2 Widget ************** -->
+      <div class="mt-7 flex items-center justify-between gap-5">
+        <div class="flex flex-wrap gap-2" role="tablist" aria-label="Escolher serviço">
+          {
+            services.map((service, index) => (
+              <button
+                type="button"
+                class="carousel-dot"
+                data-carousel-dot={index}
+                aria-label={`Mostrar ${service.title}`}
+                aria-current={index === 0 ? 'true' : 'false'}
+              >
+                <span class="sr-only">{service.title}</span>
+              </button>
+            ))
+          }
+        </div>
+        <div class="flex items-center gap-3 sm:hidden">
+          <button class="carousel-arrow" type="button" data-carousel-prev aria-label="Serviço anterior">
+            <Icon name="tabler:arrow-left" class="h-5 w-5" />
+          </button>
+          <button class="carousel-arrow" type="button" data-carousel-next aria-label="Serviço seguinte">
+            <Icon name="tabler:arrow-right" class="h-5 w-5" />
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <Features2
-    title="Contactos"
-    id="contactos"
-    subtitle=""
-    tagline=""
+  <section class="bg-white">
+    <div class="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
+      <p class="eyebrow" data-reveal="up">Como trabalhamos</p>
+      <div class="mt-10 grid gap-8 lg:grid-cols-3">
+        {
+          steps.map(([title, description], index) => (
+            <article class="border-t border-stone-300 pt-6" data-reveal="up" style={`--reveal-delay: ${index * 100}ms`}>
+              <span class="text-sm text-[#ab5c36]">0{index + 1}</span>
+              <h3 class="mt-8 text-3xl font-medium tracking-tight text-stone-950">{title}</h3>
+              <p class="mt-4 max-w-sm leading-relaxed text-stone-600">{description}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
 
-     items={[
-      {
-        title: 'Phone',
-        description: '+351 913 993 165',
-        icon: 'tabler:headset',
-      },
-      {
-        title: 'Email',
-        description: 'sarapereira.arquitetura@hotmail.com',
-        icon: 'tabler:mail',
-      },
-      {
-        title: 'Localização',
-        description: 'Tomar',
-        icon: 'tabler:map-pin',
-      },
-      {
-        title: 'Instagram',
-        description: '<a  target="_blank" href="https://www.instagram.com/sarapereira.arquitetura" class="text-blue-600 hover:underline">sarapereira.arquitetura</a>',
-        icon: 'tabler:brand-instagram'
-      },
-      {
-        title: 'Facebook',
-        description:
-          "Sara Pereira",
-        icon: 'tabler:brand-facebook',
-      },
-      {
-        title: 'Linkedin',
-        description:
-          "Sara Pereira",
-        icon: 'tabler:brand-linkedin',
-      },
-    ]}
-  >
-    <Fragment slot="bg">
-      <div class="absolute inset-0 bg-white-50 dark:bg-transparent"></div>
-    </Fragment>
-  </Features2>
-
-
-
-
-
-  <!-- FAQs Widget ******************* -->
-<!--
-  <FAQs
-  id="faqs"
-    title="Frequently Asked Questions"
-    subtitle="Dive into the following questions to gain insights into the powerful features that AstroWind offers and how it can elevate your web development journey."
-    tagline="FAQs"
-    classes={{ container: 'max-w-6xl' }}
-    items={[
-      {
-        title: 'Why AstroWind?',
-        description:
-          "Michael Knight a young loner on a crusade to champion the cause of the innocent. The helpless. The powerless in a world of criminals who operate above the law. Here he comes Here comes Speed Racer. He's a demon on wheels.",
-      },
-      {
-        title: 'What do I need to start?',
-        description:
-          'Space, the final frontier. These are the voyages of the Starship Enterprise. Its five-year mission: to explore strange new worlds. Many say exploration is part of our destiny, but it’s actually our duty to future generations.',
-      },
-      {
-        title: 'How to install the Astro + Tailwind CSS template?',
-        description:
-          "Well, the way they make shows is, they make one show. That show's called a pilot. Then they show that show to the people who make shows, and on the strength of that one show they decide if they're going to make more shows.",
-      },
-      {
-        title: "What's something that you don't understand?",
-        description:
-          "A flower in my garden, a mystery in my panties. Heart attack never stopped old Big Bear. I didn't even know we were calling him Big Bear.",
-      },
-      {
-        title: 'What is something that you would like to try again?',
-        description:
-          "A business big enough that it could be listed on the NASDAQ goes belly up. Disappears! It ceases to exist without me. No, you clearly don't know who you're talking to, so let me clue you in.",
-      },
-      {
-        title: 'If you could only ask one question to each person you meet, what would that question be?',
-        description:
-          "This is not about revenge. This is about justice. A lot of things can change in twelve years, Admiral. Well, that's certainly good to know. About four years. I got tired of hearing how young I looked.",
-      },
-    ]}
-  />
- -->
-  <!-- Stats Widget ****************** -->
-<!--
-  <Stats
-    stats={[
-      { title: 'Downloads', amount: '132K' },
-      { title: 'Stars', amount: '24.8K' },
-      { title: 'Forks', amount: '10.3K' },
-      { title: 'Users', amount: '48.4K' },
-    ]}
-  />-->
-
-  <!-- CallToAction Widget *********** -->
-<!--
-  <CallToAction
-    actions={[
-      {
-        variant: 'primary',
-        text: 'Get template',
-        href: 'https://github.com/onwidget/astrowind',
-        target: '_blank',
-        icon: 'tabler:download',
-      },
-    ]}
-  >
-     <Fragment slot="title">
-      Astro&nbsp;+&nbsp;<br class="block sm:hidden" /><span class="sm:whitespace-nowrap">Tailwind CSS</span>
-    </Fragment>
-
-    <Fragment slot="subtitle">
-      Be very surprised by these huge fake numbers you are seeing on this page. <br class="hidden md:inline" />Don't
-      waste more time! :P
-    </Fragment>
-    
-  </CallToAction>
-  -->
+  <section id="contactos" class="scroll-mt-24 bg-[#d9c7ad]">
+    <div class="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
+      <p class="eyebrow" data-reveal="up">Contactos</p>
+      <div class="mt-8 grid gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
+        <div data-reveal="left">
+          <h2 class="text-[clamp(3rem,7vw,6.5rem)] font-medium leading-[0.95] tracking-[-0.055em] text-stone-950">
+            Tem um espaço<br /> para transformar?
+          </h2>
+          <a
+            class="mt-10 inline-flex items-center gap-3 text-lg font-semibold text-stone-950 underline decoration-stone-700/30 underline-offset-8 transition hover:decoration-stone-900"
+            href="mailto:sarapereira.arquitetura@hotmail.com"
+          >
+            Conte-me a sua ideia
+            <Icon name="tabler:arrow-up-right" class="h-5 w-5" />
+          </a>
+        </div>
+        <address class="not-italic lg:justify-self-end" data-reveal="right">
+          <ul class="space-y-5 text-lg text-stone-800">
+            <li><a class="contact-link" href="tel:+351913993165"><Icon name="tabler:phone" /> +351 913 993 165</a></li>
+            <li>
+              <a class="contact-link break-all" href="mailto:sarapereira.arquitetura@hotmail.com"
+                ><Icon name="tabler:mail" /> sarapereira.arquitetura@hotmail.com</a
+              >
+            </li>
+            <li><span class="contact-link"><Icon name="tabler:map-pin" /> Tomar, Portugal</span></li>
+            <li>
+              <a
+                class="contact-link"
+                href="https://www.instagram.com/sarapereira.arquitetura"
+                target="_blank"
+                rel="noopener noreferrer"><Icon name="tabler:brand-instagram" /> @sarapereira.arquitetura</a
+              >
+            </li>
+          </ul>
+        </address>
+      </div>
+    </div>
+  </section>
 </Layout>
+
+<script>
+  const initializeServicesCarousel = () => {
+    const carousel = document.querySelector<HTMLElement>('[data-services-carousel]');
+    if (!carousel || carousel.dataset.ready === 'true') return;
+
+    carousel.dataset.ready = 'true';
+    const slides = Array.from(carousel.querySelectorAll<HTMLElement>('[data-service-slide]'));
+    const dots = Array.from(carousel.querySelectorAll<HTMLButtonElement>('[data-carousel-dot]'));
+    const triggers = Array.from(document.querySelectorAll<HTMLElement>('[data-service-trigger]'));
+    const previousButtons = Array.from(carousel.querySelectorAll<HTMLButtonElement>('[data-carousel-prev]'));
+    const nextButtons = Array.from(carousel.querySelectorAll<HTMLButtonElement>('[data-carousel-next]'));
+    let currentIndex = 0;
+    let timer: number | undefined;
+
+    const startTimer = () => {
+      window.clearInterval(timer);
+      timer = window.setInterval(() => showSlide(currentIndex + 1, false), 6500);
+    };
+
+    const showSlide = (requestedIndex: number, restart = true) => {
+      currentIndex = (requestedIndex + slides.length) % slides.length;
+
+      slides.forEach((slide, index) => {
+        slide.hidden = index !== currentIndex;
+      });
+
+      dots.forEach((dot, index) => {
+        dot.setAttribute('aria-current', index === currentIndex ? 'true' : 'false');
+      });
+
+      if (restart) startTimer();
+    };
+
+    triggers.forEach((trigger) => {
+      trigger.addEventListener('click', () => {
+        showSlide(Number(trigger.dataset.serviceTrigger));
+      });
+    });
+
+    dots.forEach((dot) => {
+      dot.addEventListener('click', () => showSlide(Number(dot.dataset.carouselDot)));
+    });
+
+    previousButtons.forEach((button) => button.addEventListener('click', () => showSlide(currentIndex - 1)));
+    nextButtons.forEach((button) => button.addEventListener('click', () => showSlide(currentIndex + 1)));
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) window.clearInterval(timer);
+      else startTimer();
+    });
+
+    startTimer();
+  };
+
+  initializeServicesCarousel();
+  document.addEventListener('astro:page-load', initializeServicesCarousel);
+
+  const initializePageMotion = () => {
+    const elements = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]:not([data-motion-ready])'));
+    if (!elements.length) return;
+
+    document.documentElement.classList.add('motion-ready');
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+      elements.forEach((element) => {
+        element.dataset.motionReady = 'true';
+        element.classList.add('is-visible');
+      });
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.14, rootMargin: '0px 0px -8% 0px' }
+    );
+
+    elements.forEach((element) => {
+      element.dataset.motionReady = 'true';
+      observer.observe(element);
+    });
+  };
+
+  initializePageMotion();
+  document.addEventListener('astro:page-load', initializePageMotion);
+</script>
+
+<style>
+  .hero-shell {
+    background:
+      linear-gradient(90deg, transparent 49.9%, rgb(120 113 108 / 0.12) 50%, transparent 50.1%),
+      linear-gradient(0deg, transparent 49.9%, rgb(120 113 108 / 0.1) 50%, transparent 50.1%), #f8f6f1;
+    background-size: 120px 120px;
+  }
+
+  .hero-copy > * {
+    animation: hero-copy-in 800ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .hero-copy > :nth-child(1) {
+    animation-delay: 80ms;
+  }
+
+  .hero-copy > :nth-child(2) {
+    animation-delay: 170ms;
+  }
+
+  .hero-copy > :nth-child(3) {
+    animation-delay: 300ms;
+  }
+
+  .hero-copy > :nth-child(4) {
+    animation-delay: 410ms;
+  }
+
+  .hero-portrait-frame {
+    animation: hero-portrait-in 1050ms cubic-bezier(0.22, 1, 0.36, 1) 180ms both;
+  }
+
+  :global(html.motion-ready) [data-reveal] {
+    opacity: 0;
+    transform: translateY(2rem);
+    transition:
+      opacity 720ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 720ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: opacity, transform;
+  }
+
+  :global(html.motion-ready) [data-reveal='left'] {
+    transform: translateX(-2rem);
+  }
+
+  :global(html.motion-ready) [data-reveal='right'] {
+    transform: translateX(2rem);
+  }
+
+  :global(html.motion-ready) [data-reveal].is-visible {
+    opacity: 1;
+    transform: none;
+    will-change: auto;
+  }
+
+  .eyebrow {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #8c4c2f;
+  }
+
+  .eyebrow-light {
+    color: #dba480;
+  }
+
+  .service-card {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    min-height: 18rem;
+    transition:
+      background-color 360ms ease,
+      box-shadow 360ms ease,
+      transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .service-card::before {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: linear-gradient(145deg, rgb(255 255 255 / 0.7), rgb(219 164 128 / 0.12));
+    content: '';
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 440ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .service-card:hover {
+    z-index: 1;
+    background: rgb(255 255 255 / 0.4);
+    box-shadow: 0 1.5rem 3rem rgb(31 40 37 / 0.1);
+    transform: translateY(-0.5rem);
+  }
+
+  .service-card:hover::before,
+  .service-card:focus-visible::before {
+    transform: scaleY(1);
+  }
+
+  .service-carousel-stage [data-service-slide] {
+    animation: service-slide-in 620ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .service-carousel-stage {
+    overflow: hidden;
+  }
+
+  .service-carousel-stage [data-service-slide] img {
+    animation: service-image-in 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .service-carousel-stage [data-service-slide] > div > div:last-child {
+    animation: service-content-in 700ms cubic-bezier(0.22, 1, 0.36, 1) 90ms both;
+  }
+
+  .carousel-arrow {
+    display: inline-flex;
+    height: 2.75rem;
+    width: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgb(255 255 255 / 0.22);
+    border-radius: 9999px;
+    color: #fff;
+    transition:
+      background-color 160ms ease,
+      color 160ms ease;
+  }
+
+  .carousel-arrow:hover,
+  .carousel-arrow:focus-visible {
+    background: #dba480;
+    color: #1f2825;
+    outline: none;
+  }
+
+  .carousel-dot {
+    height: 0.25rem;
+    width: 2.5rem;
+    border-radius: 9999px;
+    background: rgb(255 255 255 / 0.2);
+    transition:
+      width 200ms ease,
+      background-color 200ms ease;
+  }
+
+  .carousel-dot[aria-current='true'] {
+    width: 4rem;
+    background: #dba480;
+  }
+
+  @keyframes service-slide-in {
+    from {
+      opacity: 0;
+      transform: translateX(1rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes hero-copy-in {
+    from {
+      opacity: 0;
+      transform: translateY(1.5rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes hero-portrait-in {
+    from {
+      opacity: 0;
+      transform: translateX(2.5rem) scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+    }
+  }
+
+  @keyframes service-image-in {
+    from {
+      opacity: 0.65;
+      transform: scale(1.045);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes service-content-in {
+    from {
+      opacity: 0;
+      transform: translateX(1.25rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  :global(#header nav > ul > li > a) {
+    position: relative;
+  }
+
+  :global(#header nav > ul > li > a)::after {
+    position: absolute;
+    right: 1rem;
+    bottom: 0.55rem;
+    left: 1rem;
+    height: 1px;
+    background: currentColor;
+    content: '';
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  :global(#header nav > ul > li > a:hover)::after,
+  :global(#header nav > ul > li > a:focus-visible)::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  :global(.hero-shell .btn) {
+    transition:
+      background-color 220ms ease,
+      border-color 220ms ease,
+      box-shadow 300ms ease,
+      color 220ms ease,
+      transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  :global(.hero-shell .btn:hover) {
+    box-shadow: 0 0.75rem 1.75rem rgb(31 40 37 / 0.12);
+    transform: translateY(-0.2rem);
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .contact-link :global(svg) {
+    width: 1.25rem;
+    height: 1.25rem;
+    flex: none;
+  }
+
+  a.contact-link {
+    transition: opacity 160ms ease;
+  }
+
+  a.contact-link:hover {
+    opacity: 0.62;
+  }
+
+  @media (max-width: 767px) {
+    .hero-copy > * {
+      animation-duration: 650ms;
+    }
+
+    .hero-portrait-frame {
+      animation-duration: 800ms;
+      animation-delay: 260ms;
+    }
+
+    :global(html.motion-ready) [data-reveal],
+    :global(html.motion-ready) [data-reveal='left'],
+    :global(html.motion-ready) [data-reveal='right'] {
+      transform: translateY(1.25rem);
+      transition-duration: 620ms;
+    }
+
+    .service-card {
+      min-height: auto;
+    }
+
+    .service-carousel-stage [data-service-slide] > div > div:last-child {
+      animation-name: service-content-in-mobile;
+    }
+
+    .carousel-arrow {
+      height: 3rem;
+      width: 3rem;
+    }
+
+    .carousel-dot {
+      width: 1.75rem;
+    }
+
+    .carousel-dot[aria-current='true'] {
+      width: 3rem;
+    }
+  }
+
+  @keyframes service-content-in-mobile {
+    from {
+      opacity: 0;
+      transform: translateY(1rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (hover: none) {
+    .service-card:hover {
+      box-shadow: none;
+      transform: none;
+    }
+
+    .service-card:active {
+      background: rgb(255 255 255 / 0.5);
+      transform: scale(0.99);
+    }
+
+    .service-card:active::before {
+      transform: scaleY(1);
+    }
+
+    :global(.hero-shell .btn:hover) {
+      box-shadow: none;
+      transform: none;
+    }
+
+    :global(.hero-shell .btn:active) {
+      transform: scale(0.98);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-copy > *,
+    .hero-portrait-frame,
+    .service-carousel-stage [data-service-slide],
+    .service-carousel-stage [data-service-slide] img,
+    .service-carousel-stage [data-service-slide] > div > div:last-child {
+      opacity: 1 !important;
+      animation: none !important;
+      transform: none !important;
+    }
+
+    :global(html.motion-ready) [data-reveal] {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+
+    .service-card,
+    .service-card::before,
+    :global(#header nav > ul > li > a)::after,
+    :global(.hero-shell .btn) {
+      transition: none;
+    }
+
+    .service-card:hover,
+    :global(.hero-shell .btn:hover) {
+      transform: none;
+    }
+  }
+</style>

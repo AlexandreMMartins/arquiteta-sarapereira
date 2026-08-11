@@ -1,4 +1,4 @@
-<div 
+<div
   x-data="{
     slides: [
       {
@@ -53,27 +53,26 @@
   x-init="startAutoSlide()"
   class="relative w-full max-w-6xl mx-auto overflow-hidden py-10"
 >
-
   <!-- Slider Wrapper -->
-<div class="relative flex w-full h-[500px] md:h-[600px] overflow-hidden">
+  <div class="relative flex w-full h-[500px] md:h-[600px] overflow-hidden">
     <template x-for="(slide, index) in slides" :key="index">
-      <div class="absolute flex w-full h-full items-center justify-between transition-all duration-700 ease-in-out"
-        :class="activeSlide === index ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'">
-        
+      <div
+        class="absolute flex w-full h-full items-center justify-between transition-all duration-700 ease-in-out"
+        :class="activeSlide === index ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'"
+      >
         <!-- Image (Left) -->
         <div class="w-1/2 h-full">
-          <img :src="slide.image" :alt="slide.title"
-            class="w-full h-full object-cover rounded-lg"
-            loading="lazy"
-          />
+          <img :src="slide.image" :alt="slide.title" class="w-full h-full object-cover rounded-lg" loading="lazy" />
         </div>
 
         <!-- Text Content (Right) -->
-        <div class="w-1/2 px-6 transition-opacity duration-700 ease-in-out"
-          :class="activeSlide === index ? 'opacity-100' : 'opacity-0'">
+        <div
+          class="w-1/2 px-6 transition-opacity duration-700 ease-in-out"
+          :class="activeSlide === index ? 'opacity-100' : 'opacity-0'"
+        >
           <h3 class="text-3xl font-bold text-gray-800 dark:text-white" x-text="slide.title"></h3>
           <p class="mt-2 text-lg text-gray-600 dark:text-gray-300" x-text="slide.description"></p>
-          
+
           <!-- Features List -->
           <ul class="mt-4 space-y-2">
             <template x-for="feature in slide.features" :key="feature.title">
@@ -86,29 +85,33 @@
               </li>
             </template>
           </ul>
-
         </div>
-
       </div>
     </template>
   </div>
 
   <!-- Navigation Buttons -->
-  <button @click="prev()"
-    class="absolute left-2 top-1/2 transform -translate-y-1/2 p-3 bg-gray-800 text-white rounded-full shadow-md hover:bg-gray-900">
+  <button
+    @click="prev()"
+    class="absolute left-2 top-1/2 transform -translate-y-1/2 p-3 bg-gray-800 text-white rounded-full shadow-md hover:bg-gray-900"
+  >
     ◀
   </button>
-  <button @click="next()"
-    class="absolute right-2 top-1/2 transform -translate-y-1/2 p-3 bg-gray-800 text-white rounded-full shadow-md hover:bg-gray-900">
+  <button
+    @click="next()"
+    class="absolute right-2 top-1/2 transform -translate-y-1/2 p-3 bg-gray-800 text-white rounded-full shadow-md hover:bg-gray-900"
+  >
     ▶
   </button>
 
   <!-- Dots Pagination -->
   <div class="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex space-x-2">
     <template x-for="(_, index) in slides">
-      <button @click="activeSlide = index; startAutoSlide()"
+      <button
+        @click="activeSlide = index; startAutoSlide()"
         class="w-3 h-3 rounded-full transition-all duration-300"
-        :class="activeSlide === index ? 'bg-white scale-110' : 'bg-gray-500'">
+        :class="activeSlide === index ? 'bg-white scale-110' : 'bg-gray-500'"
+      >
       </button>
     </template>
   </div>

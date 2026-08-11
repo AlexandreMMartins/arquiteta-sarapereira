@@ -43,21 +43,19 @@ const {
   />
   <div class="mx-auto max-w-7xl p-4 md:px-8">
     <div class={`md:flex ${isReversed ? 'md:flex-row-reverse' : ''} md:gap-16`}>
-
-        <div aria-hidden="true" class="mt-10 md:mt-0 md:basis-1/2">
+      <div aria-hidden="true" class="mt-10 md:mt-0 md:basis-1/2">
         {
           image && (
-            <div class="relative m-auto max-w-md"> {/* Increased container size */}
+            <div class="relative m-auto max-w-md">
               {typeof image === 'string' ? (
                 <Fragment set:html={image} />
               ) : (
                 <Image
-                  class="mx-auto w-58 h-58 rounded-full bg-gray-500 shadow-lg object-cover object-top"  // Bigger, rounded & prevents head cut-off
+                  class="mx-auto h-56 w-56 rounded-full bg-gray-500 object-cover object-top shadow-lg"
                   width={224}
                   height={224}
                   widths={[224, 448]}
                   sizes="(max-width: 768px) 50vw, 224px"
-                  layout="intrinsic"  // Keeps original aspect ratio
                   {...image}
                 />
               )}
@@ -65,7 +63,6 @@ const {
           )
         }
       </div>
-
 
       <div class="md:basis-1/2 self-center">
         {content && <div class="mb-12 text-lg dark:text-slate-400" set:html={content} />}
@@ -81,7 +78,6 @@ const {
         <ItemGrid
           items={items}
           columns={columns}
-          
           classes={{
             container: `gap-y-4 md:gap-y-8`,
             panel: 'max-w-none',
@@ -92,7 +88,6 @@ const {
           }}
         />
       </div>
-
     </div>
   </div>
 </WidgetWrapper>
