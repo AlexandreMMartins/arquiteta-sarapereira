@@ -1,6 +1,6 @@
 site:
   name: Sara Pereira — Arquitetura
-  site: 'https://astrowind.vercel.app'
+  site: 'https://www.sarapereira-arquitetura.pt'
   base: '/'
   trailingSlash: false
 
