@@ -91,9 +91,9 @@ const steps = [
       class="mx-auto grid min-h-[calc(100vh-72px)] max-w-7xl items-center gap-14 px-5 py-20 md:px-8 lg:grid-cols-[1.2fr_0.8fr] lg:py-24"
     >
       <div class="hero-copy relative z-10 max-w-3xl">
-        <p class="eyebrow">Arquitetura · Tomar</p>
-        <h1 class="mt-7 text-[clamp(3.6rem,9vw,8.4rem)] font-medium leading-[0.86] tracking-[-0.065em] text-stone-950">
-          Espaços com<br /> memória e futuro.
+        <h1 class="hero-title text-[clamp(3.6rem,9vw,8.4rem)] font-medium leading-[0.98] tracking-[-0.065em] text-stone-950 md:leading-[0.86]">
+          <span class="hero-line"><span>Espaços com</span></span>
+          <span class="hero-line"><span>memória e futuro.</span></span>
         </h1>
         <p class="mt-8 max-w-xl text-lg leading-relaxed text-stone-600 md:text-xl">
           Projetos atentos ao que já existe e à forma como cada pessoa vive — do primeiro esboço ao último detalhe.
@@ -111,7 +111,9 @@ const steps = [
           <Image
             src={portrait}
             alt="Sara Pereira, arquiteta"
-            class="h-full w-full object-cover object-center"
+            class="parallax-image h-full w-full object-cover object-center"
+            data-parallax
+            data-parallax-strength="0.55"
             widths={[420, 640, 840]}
             sizes="(max-width: 1024px) 80vw, 32vw"
             loading="eager"
@@ -129,8 +131,12 @@ const steps = [
           Uma prática próxima, orientada pela curiosidade, pela função e pelo respeito pelo contexto.
         </p>
       </div>
-      <div data-reveal="right">
-        <h2 class="max-w-4xl text-4xl font-medium leading-tight tracking-[-0.035em] md:text-6xl">
+      <div>
+        <h2
+          class="max-w-4xl text-4xl font-medium leading-tight tracking-[-0.035em] md:text-6xl"
+          data-reveal="right"
+          data-reveal-repeat
+        >
           “Desde pequena que o meu sonho era criar e transformar casas.”
         </h2>
         <div class="mt-10 grid gap-6 text-base leading-relaxed text-stone-300 md:grid-cols-2 md:text-lg">
@@ -151,7 +157,7 @@ const steps = [
   <section id="servicos" class="scroll-mt-24 bg-[#f3f0e9]">
     <div class="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
       <div class="grid gap-8 lg:grid-cols-2 lg:items-end">
-        <div data-reveal="left">
+        <div data-reveal="left" data-reveal-repeat>
           <p class="eyebrow">Serviços</p>
           <h2 class="mt-6 text-4xl font-medium tracking-[-0.04em] text-stone-950 md:text-6xl">
             Do espaço existente<br /> à ideia construída.
@@ -191,9 +197,9 @@ const steps = [
     </div>
   </section>
 
-  <section id="detalhes-servicos" class="scroll-mt-20 bg-[#1f2825] text-white" data-services-carousel>
-    <div class="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
-      <div class="mb-10 flex items-end justify-between gap-6" data-reveal="up">
+  <section id="detalhes-servicos" class="scroll-mt-8 bg-[#1f2825] text-white" data-services-carousel>
+    <div class="mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-20">
+      <div class="mb-8 flex items-end justify-between gap-6" data-reveal="up" data-reveal-repeat>
         <div>
           <p class="eyebrow eyebrow-light">Em detalhe</p>
           <p class="mt-4 max-w-md text-stone-400">
@@ -220,20 +226,22 @@ const steps = [
               aria-label={`${index + 1} de ${services.length}`}
             >
               <div class="grid overflow-hidden rounded-sm bg-[#29332f] lg:grid-cols-[1.05fr_0.95fr]">
-                <div class="aspect-[4/3] overflow-hidden lg:aspect-auto lg:min-h-[34rem]">
+                <div class="service-media aspect-[4/3] overflow-hidden lg:aspect-auto lg:min-h-[28rem]">
                   <Image
                     src={service.image}
                     alt={`Ambiente representativo de ${service.title.toLowerCase()}`}
-                    class="h-full w-full object-cover"
+                    class="parallax-image h-full w-full object-cover"
+                    data-parallax
+                    data-parallax-strength="0.35"
                     widths={[640, 960, 1280]}
                     sizes="(max-width: 1024px) 100vw, 55vw"
                   />
                 </div>
-                <div class="flex flex-col justify-between p-7 md:p-10 lg:p-14">
+                <div class="flex flex-col justify-between p-7 md:p-8 lg:p-10">
                   <div>
-                    <h3 class="text-3xl font-medium leading-tight tracking-[-0.035em] md:text-5xl">{service.title}</h3>
-                    <p class="mt-7 text-base leading-relaxed text-stone-300 md:text-lg">{service.detail}</p>
-                    <ul class="mt-8 space-y-3 border-t border-white/15 pt-6">
+                    <h3 class="text-3xl font-medium leading-tight tracking-[-0.035em] md:text-4xl">{service.title}</h3>
+                    <p class="mt-5 text-base leading-relaxed text-stone-300 lg:text-lg">{service.detail}</p>
+                    <ul class="mt-6 space-y-2.5 border-t border-white/15 pt-5">
                       {service.highlights.map((highlight) => (
                         <li class="flex items-center gap-3 text-sm text-stone-300 md:text-base">
                           <span class="h-1.5 w-1.5 rounded-full bg-[#dba480]" />
@@ -243,7 +251,7 @@ const steps = [
                     </ul>
                   </div>
                   <a
-                    class="mt-10 inline-flex items-center gap-2 font-semibold text-[#e6b897] transition hover:gap-3"
+                    class="mt-8 inline-flex items-center gap-2 font-semibold text-[#e6b897] transition hover:gap-3"
                     href="#contactos"
                   >
                     Falar sobre este serviço
@@ -256,7 +264,7 @@ const steps = [
         }
       </div>
 
-      <div class="mt-7 flex items-center justify-between gap-5">
+      <div class="mt-5 flex items-center justify-between gap-5">
         <div class="flex flex-wrap gap-2" role="tablist" aria-label="Escolher serviço">
           {
             services.map((service, index) => (
@@ -286,7 +294,7 @@ const steps = [
 
   <section class="bg-white">
     <div class="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
-      <p class="eyebrow" data-reveal="up">Como trabalhamos</p>
+      <p class="eyebrow" data-reveal="up" data-reveal-repeat>Como trabalhamos</p>
       <div class="mt-10 grid gap-8 lg:grid-cols-3">
         {
           steps.map(([title, description], index) => (
@@ -305,7 +313,7 @@ const steps = [
     <div class="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
       <p class="eyebrow" data-reveal="up">Contactos</p>
       <div class="mt-8 grid gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
-        <div data-reveal="left">
+        <div data-reveal="left" data-reveal-repeat>
           <h2 class="text-[clamp(3rem,7vw,6.5rem)] font-medium leading-[0.95] tracking-[-0.055em] text-stone-950">
             Tem um espaço<br /> para transformar?
           </h2>
@@ -415,13 +423,19 @@ const steps = [
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
+          const element = entry.target as HTMLElement;
+          const shouldRepeat = element.hasAttribute('data-reveal-repeat');
 
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
+          if (entry.isIntersecting) {
+            element.classList.add('is-visible');
+            if (!shouldRepeat) observer.unobserve(element);
+            return;
+          }
+
+          if (shouldRepeat) element.classList.remove('is-visible');
         });
       },
-      { threshold: 0.14, rootMargin: '0px 0px -8% 0px' }
+      { threshold: 0.14, rootMargin: '-96px 0px -8% 0px' }
     );
 
     elements.forEach((element) => {
@@ -432,6 +446,84 @@ const steps = [
 
   initializePageMotion();
   document.addEventListener('astro:page-load', initializePageMotion);
+
+  const initializeParallax = () => {
+    const root = document.documentElement;
+    if (root.dataset.parallaxReady === 'true') return;
+
+    root.dataset.parallaxReady = 'true';
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let frame: number | undefined;
+
+    const update = () => {
+      frame = undefined;
+      if (reducedMotion.matches) return;
+
+      const viewportHeight = window.innerHeight;
+      const mobileMultiplier = window.innerWidth < 768 ? 0.45 : 1;
+
+      document.querySelectorAll<HTMLElement>('[data-parallax]').forEach((element) => {
+        if (element.closest('[hidden]')) return;
+
+        const bounds = element.getBoundingClientRect();
+        if (bounds.bottom < -120 || bounds.top > viewportHeight + 120) return;
+
+        const distanceFromCenter = bounds.top + bounds.height / 2 - viewportHeight / 2;
+        const progress = Math.max(-1, Math.min(1, distanceFromCenter / viewportHeight));
+        const strength = Number(element.dataset.parallaxStrength ?? 0.4);
+        element.style.setProperty('--parallax-y', `${progress * -44 * strength * mobileMultiplier}px`);
+      });
+    };
+
+    const requestUpdate = () => {
+      if (frame !== undefined) return;
+      frame = window.requestAnimationFrame(update);
+    };
+
+    window.addEventListener('scroll', requestUpdate, { passive: true });
+    window.addEventListener('resize', requestUpdate, { passive: true });
+    requestUpdate();
+  };
+
+  initializeParallax();
+  document.addEventListener('astro:page-load', initializeParallax);
+
+  const initializeSectionFeedback = () => {
+    document
+      .querySelectorAll<HTMLAnchorElement>(
+        'a[href="#sobre"]:not([data-section-ready]), a[href="#servicos"]:not([data-section-ready]), a[href="#contactos"]:not([data-section-ready])'
+      )
+      .forEach((link) => {
+        link.dataset.sectionReady = 'true';
+        link.addEventListener('click', (event) => {
+          const href = link.getAttribute('href') ?? '';
+          const target = document.querySelector<HTMLElement>(href);
+          if (!target) return;
+
+          event.preventDefault();
+
+          const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          const bounds = target.getBoundingClientRect();
+          const alreadyVisible = bounds.top < window.innerHeight * 0.45 && bounds.bottom > window.innerHeight * 0.55;
+
+          target.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
+          window.history.replaceState(null, '', href);
+
+          window.setTimeout(
+            () => {
+              target.classList.remove('is-section-highlighted');
+              void target.offsetWidth;
+              target.classList.add('is-section-highlighted');
+              window.setTimeout(() => target.classList.remove('is-section-highlighted'), 1100);
+            },
+            alreadyVisible || reducedMotion ? 0 : 520
+          );
+        });
+      });
+  };
+
+  initializeSectionFeedback();
+  document.addEventListener('astro:page-load', initializeSectionFeedback);
 </script>
 
 <style>
@@ -442,28 +534,45 @@ const steps = [
     background-size: 120px 120px;
   }
 
-  .hero-copy > * {
+  .hero-copy > :not(.hero-title) {
     animation: hero-copy-in 800ms cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
-  .hero-copy > :nth-child(1) {
+  .hero-line {
+    display: block;
+    overflow: hidden;
+    padding: 0 0.08em 0.1em 0;
+    margin-bottom: -0.1em;
+  }
+
+  .hero-line > span {
+    display: block;
+    animation: hero-line-in 980ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .hero-line:nth-child(1) > span {
     animation-delay: 80ms;
   }
 
+  .hero-line:nth-child(2) > span {
+    animation-delay: 180ms;
+  }
+
   .hero-copy > :nth-child(2) {
-    animation-delay: 170ms;
+    animation-delay: 310ms;
   }
 
   .hero-copy > :nth-child(3) {
-    animation-delay: 300ms;
-  }
-
-  .hero-copy > :nth-child(4) {
-    animation-delay: 410ms;
+    animation-delay: 430ms;
   }
 
   .hero-portrait-frame {
     animation: hero-portrait-in 1050ms cubic-bezier(0.22, 1, 0.36, 1) 180ms both;
+  }
+
+  .parallax-image {
+    transform: translate3d(0, var(--parallax-y, 0), 0) scale(1.075);
+    transition: transform 90ms linear;
   }
 
   :global(html.motion-ready) [data-reveal] {
@@ -524,6 +633,23 @@ const steps = [
     transition: transform 440ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
+  .service-card::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 1px;
+    background: #ab5c36;
+    content: '';
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms);
+  }
+
+  .service-card.is-visible::after {
+    transform: scaleX(1);
+  }
+
   .service-card:hover {
     z-index: 1;
     background: rgb(255 255 255 / 0.4);
@@ -544,12 +670,28 @@ const steps = [
     overflow: hidden;
   }
 
-  .service-carousel-stage [data-service-slide] img {
-    animation: service-image-in 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  .service-carousel-stage [data-service-slide] .service-media {
+    animation: service-media-in 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 
   .service-carousel-stage [data-service-slide] > div > div:last-child {
     animation: service-content-in 700ms cubic-bezier(0.22, 1, 0.36, 1) 90ms both;
+  }
+
+  .service-carousel-stage [data-service-slide] li {
+    animation: service-list-in 560ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .service-carousel-stage [data-service-slide] li:nth-child(1) {
+    animation-delay: 240ms;
+  }
+
+  .service-carousel-stage [data-service-slide] li:nth-child(2) {
+    animation-delay: 310ms;
+  }
+
+  .service-carousel-stage [data-service-slide] li:nth-child(3) {
+    animation-delay: 380ms;
   }
 
   .carousel-arrow {
@@ -610,25 +752,36 @@ const steps = [
     }
   }
 
+  @keyframes hero-line-in {
+    from {
+      opacity: 0;
+      transform: translateY(112%) rotate(1.5deg);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) rotate(0);
+    }
+  }
+
   @keyframes hero-portrait-in {
     from {
       opacity: 0;
+      clip-path: inset(0 100% 0 0);
       transform: translateX(2.5rem) scale(0.98);
     }
     to {
       opacity: 1;
+      clip-path: inset(0);
       transform: translateX(0) scale(1);
     }
   }
 
-  @keyframes service-image-in {
+  @keyframes service-media-in {
     from {
-      opacity: 0.65;
-      transform: scale(1.045);
+      clip-path: inset(0 100% 0 0);
     }
     to {
-      opacity: 1;
-      transform: scale(1);
+      clip-path: inset(0);
     }
   }
 
@@ -640,6 +793,17 @@ const steps = [
     to {
       opacity: 1;
       transform: translateX(0);
+    }
+  }
+
+  @keyframes service-list-in {
+    from {
+      opacity: 0;
+      transform: translateY(0.65rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 
@@ -700,8 +864,119 @@ const steps = [
     opacity: 0.62;
   }
 
+  #sobre.is-section-highlighted {
+    animation: about-section-highlight 1000ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  #servicos.is-section-highlighted {
+    animation: services-section-highlight 1000ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  #contactos.is-section-highlighted {
+    animation: contact-section-highlight 1000ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .is-section-highlighted h2,
+  .is-section-highlighted .eyebrow {
+    animation: contact-title-highlight 820ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  #servicos.is-section-highlighted .service-card {
+    animation: section-content-highlight 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  #servicos.is-section-highlighted .service-card:nth-child(2),
+  #servicos.is-section-highlighted .service-card:nth-child(5) {
+    animation-delay: 60ms;
+  }
+
+  #servicos.is-section-highlighted .service-card:nth-child(3),
+  #servicos.is-section-highlighted .service-card:nth-child(6) {
+    animation-delay: 120ms;
+  }
+
+  #contactos.is-section-highlighted .contact-link {
+    animation: contact-link-highlight 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  #contactos.is-section-highlighted li:nth-child(2) .contact-link {
+    animation-delay: 70ms;
+  }
+
+  #contactos.is-section-highlighted li:nth-child(3) .contact-link {
+    animation-delay: 140ms;
+  }
+
+  #contactos.is-section-highlighted li:nth-child(4) .contact-link {
+    animation-delay: 210ms;
+  }
+
+  @keyframes about-section-highlight {
+    0%,
+    100% {
+      background-color: #1f2825;
+    }
+    38% {
+      background-color: #293732;
+    }
+  }
+
+  @keyframes services-section-highlight {
+    0%,
+    100% {
+      background-color: #f3f0e9;
+    }
+    38% {
+      background-color: #fffaf1;
+    }
+  }
+
+  @keyframes contact-section-highlight {
+    0%,
+    100% {
+      background-color: #d9c7ad;
+    }
+    38% {
+      background-color: #e6d5bd;
+    }
+  }
+
+  @keyframes contact-title-highlight {
+    from {
+      opacity: 0.55;
+      transform: translateY(0.8rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes contact-link-highlight {
+    from {
+      opacity: 0.35;
+      transform: translateX(-0.75rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes section-content-highlight {
+    from {
+      opacity: 0.55;
+      transform: translateY(0.65rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
   @media (max-width: 767px) {
-    .hero-copy > * {
+    .hero-copy > :not(.hero-title),
+    .hero-line > span {
       animation-duration: 650ms;
     }
 
@@ -777,13 +1052,20 @@ const steps = [
 
   @media (prefers-reduced-motion: reduce) {
     .hero-copy > *,
+    .hero-line > span,
     .hero-portrait-frame,
     .service-carousel-stage [data-service-slide],
-    .service-carousel-stage [data-service-slide] img,
-    .service-carousel-stage [data-service-slide] > div > div:last-child {
+    .service-carousel-stage [data-service-slide] .service-media,
+    .service-carousel-stage [data-service-slide] > div > div:last-child,
+    .service-carousel-stage [data-service-slide] li {
       opacity: 1 !important;
       animation: none !important;
       transform: none !important;
+    }
+
+    .parallax-image {
+      transform: scale(1.075);
+      transition: none;
     }
 
     :global(html.motion-ready) [data-reveal] {
@@ -794,6 +1076,7 @@ const steps = [
 
     .service-card,
     .service-card::before,
+    .service-card::after,
     :global(#header nav > ul > li > a)::after,
     :global(.hero-shell .btn) {
       transition: none;
@@ -802,6 +1085,14 @@ const steps = [
     .service-card:hover,
     :global(.hero-shell .btn:hover) {
       transform: none;
+    }
+
+    .is-section-highlighted,
+    .is-section-highlighted h2,
+    .is-section-highlighted .eyebrow,
+    #servicos.is-section-highlighted .service-card,
+    #contactos.is-section-highlighted .contact-link {
+      animation: none;
     }
   }
 </style>
