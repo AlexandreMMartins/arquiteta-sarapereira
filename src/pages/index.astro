@@ -88,15 +88,18 @@ const steps = [
 <Layout metadata={metadata}>
   <section class="hero-shell overflow-hidden">
     <div
-      class="mx-auto grid min-h-[calc(100vh-72px)] max-w-7xl items-center gap-14 px-5 py-20 md:px-8 lg:grid-cols-[1.2fr_0.8fr] lg:py-24"
+      class="hero-layout mx-auto grid min-h-[calc(100svh-72px)] max-w-7xl items-center gap-10 px-5 py-10 sm:gap-12 sm:py-12 md:px-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-14 lg:py-10"
     >
       <div class="hero-copy relative z-10 max-w-3xl">
-        <h1 class="hero-title text-[clamp(3.6rem,9vw,8.4rem)] font-medium leading-[0.98] tracking-[-0.065em] text-stone-950 md:leading-[0.86]">
+        <h1
+          class="hero-title text-[clamp(3.6rem,9vw,8.4rem)] font-medium leading-[1.06] tracking-[-0.065em] text-stone-950 lg:text-[clamp(4.3rem,6.1vw,5.55rem)]"
+        >
           <span class="hero-line"><span>Espaços com</span></span>
           <span class="hero-line"><span>memória e futuro.</span></span>
         </h1>
         <p class="mt-8 max-w-xl text-lg leading-relaxed text-stone-600 md:text-xl">
-          Projetos atentos ao que já existe e à forma como cada pessoa vive — do primeiro esboço ao último detalhe.
+          Projetos atentos ao que já existe e à forma como cada pessoa vive, desde o primeiro esboço até ao último
+          detalhe.
         </p>
         <div class="mt-10 flex flex-wrap gap-3">
           <a class="btn btn-primary" href="#contactos">Falar sobre um projeto</a>
@@ -104,9 +107,9 @@ const steps = [
         </div>
       </div>
 
-      <div class="hero-portrait relative mx-auto w-full max-w-md -translate-y-5 lg:max-w-none lg:-translate-y-8">
+      <div class="hero-portrait relative mx-auto w-full max-w-sm sm:max-w-md lg:max-w-none">
         <div
-          class="hero-portrait-frame relative mx-auto aspect-[4/5] w-[88%] overflow-hidden rounded-t-[11rem] bg-[#e9dfd0] shadow-xl shadow-stone-900/10"
+          class="hero-portrait-frame relative mx-auto aspect-[4/5] w-[82%] overflow-hidden rounded-t-[11rem] bg-[#e9dfd0] shadow-xl shadow-stone-900/10 lg:w-[min(88%,calc(80svh-7.2rem))]"
         >
           <Image
             src={portrait}
@@ -197,7 +200,14 @@ const steps = [
     </div>
   </section>
 
-  <section id="detalhes-servicos" class="scroll-mt-8 bg-[#1f2825] text-white" data-services-carousel>
+  <section
+    id="detalhes-servicos"
+    class="scroll-mt-8 bg-[#1f2825] text-white"
+    data-services-carousel
+    role="region"
+    aria-roledescription="carrossel"
+    aria-label="Detalhes dos serviços"
+  >
     <div class="mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-20">
       <div class="mb-8 flex items-end justify-between gap-6" data-reveal="up" data-reveal-repeat>
         <div>
@@ -210,18 +220,31 @@ const steps = [
           <button class="carousel-arrow" type="button" data-carousel-prev aria-label="Serviço anterior">
             <Icon name="tabler:arrow-left" class="h-5 w-5" />
           </button>
+          <button
+            class="carousel-arrow"
+            type="button"
+            data-carousel-toggle
+            aria-label="Pausar rotação automática"
+            aria-pressed="false"
+          >
+            <Icon name="tabler:player-pause" class="h-5 w-5" data-carousel-pause-icon />
+            <Icon name="tabler:player-play" class="hidden h-5 w-5" data-carousel-play-icon />
+          </button>
           <button class="carousel-arrow" type="button" data-carousel-next aria-label="Serviço seguinte">
             <Icon name="tabler:arrow-right" class="h-5 w-5" />
           </button>
         </div>
       </div>
 
-      <div class="service-carousel-stage" data-reveal="up" style="--reveal-delay: 100ms">
+      <p class="sr-only" aria-live="polite" aria-atomic="true" data-carousel-announcement></p>
+      <div class="service-carousel-stage" data-reveal="up" style="--reveal-delay: 100ms" aria-live="off">
         {
           services.map((service, index) => (
             <article
+              id={`service-slide-${index}`}
               data-service-slide
               hidden={index !== 0}
+              role="group"
               aria-roledescription="slide"
               aria-label={`${index + 1} de ${services.length}`}
             >
@@ -272,8 +295,10 @@ const steps = [
                 type="button"
                 class="carousel-dot"
                 data-carousel-dot={index}
+                role="tab"
+                aria-controls={`service-slide-${index}`}
                 aria-label={`Mostrar ${service.title}`}
-                aria-current={index === 0 ? 'true' : 'false'}
+                aria-selected={index === 0 ? 'true' : 'false'}
               >
                 <span class="sr-only">{service.title}</span>
               </button>
@@ -283,6 +308,16 @@ const steps = [
         <div class="flex items-center gap-3 sm:hidden">
           <button class="carousel-arrow" type="button" data-carousel-prev aria-label="Serviço anterior">
             <Icon name="tabler:arrow-left" class="h-5 w-5" />
+          </button>
+          <button
+            class="carousel-arrow"
+            type="button"
+            data-carousel-toggle
+            aria-label="Pausar rotação automática"
+            aria-pressed="false"
+          >
+            <Icon name="tabler:player-pause" class="h-5 w-5" data-carousel-pause-icon />
+            <Icon name="tabler:player-play" class="hidden h-5 w-5" data-carousel-play-icon />
           </button>
           <button class="carousel-arrow" type="button" data-carousel-next aria-label="Serviço seguinte">
             <Icon name="tabler:arrow-right" class="h-5 w-5" />
@@ -360,11 +395,32 @@ const steps = [
     const triggers = Array.from(document.querySelectorAll<HTMLElement>('[data-service-trigger]'));
     const previousButtons = Array.from(carousel.querySelectorAll<HTMLButtonElement>('[data-carousel-prev]'));
     const nextButtons = Array.from(carousel.querySelectorAll<HTMLButtonElement>('[data-carousel-next]'));
+    const toggleButtons = Array.from(carousel.querySelectorAll<HTMLButtonElement>('[data-carousel-toggle]'));
+    const announcement = carousel.querySelector<HTMLElement>('[data-carousel-announcement]');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     let currentIndex = 0;
     let timer: number | undefined;
+    let manuallyPaused = reducedMotion.matches;
+    let pointerInside = false;
+    let focusWithin = false;
+
+    const stopTimer = () => {
+      window.clearInterval(timer);
+      timer = undefined;
+    };
+
+    const syncToggleButtons = () => {
+      toggleButtons.forEach((button) => {
+        button.setAttribute('aria-pressed', manuallyPaused ? 'true' : 'false');
+        button.setAttribute('aria-label', manuallyPaused ? 'Iniciar rotação automática' : 'Pausar rotação automática');
+        button.querySelector<HTMLElement>('[data-carousel-pause-icon]')?.classList.toggle('hidden', manuallyPaused);
+        button.querySelector<HTMLElement>('[data-carousel-play-icon]')?.classList.toggle('hidden', !manuallyPaused);
+      });
+    };
 
     const startTimer = () => {
-      window.clearInterval(timer);
+      stopTimer();
+      if (manuallyPaused || reducedMotion.matches || pointerInside || focusWithin || document.hidden) return;
       timer = window.setInterval(() => showSlide(currentIndex + 1, false), 6500);
     };
 
@@ -376,8 +432,13 @@ const steps = [
       });
 
       dots.forEach((dot, index) => {
-        dot.setAttribute('aria-current', index === currentIndex ? 'true' : 'false');
+        dot.setAttribute('aria-selected', index === currentIndex ? 'true' : 'false');
       });
+
+      if (restart && announcement) {
+        const title = slides[currentIndex]?.querySelector('h3')?.textContent?.trim();
+        announcement.textContent = title ? `A mostrar ${title}` : '';
+      }
 
       if (restart) startTimer();
     };
@@ -394,12 +455,46 @@ const steps = [
 
     previousButtons.forEach((button) => button.addEventListener('click', () => showSlide(currentIndex - 1)));
     nextButtons.forEach((button) => button.addEventListener('click', () => showSlide(currentIndex + 1)));
+    toggleButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        manuallyPaused = !manuallyPaused;
+        syncToggleButtons();
+        if (manuallyPaused) stopTimer();
+        else startTimer();
+      });
+    });
+
+    carousel.addEventListener('mouseenter', () => {
+      pointerInside = true;
+      stopTimer();
+    });
+    carousel.addEventListener('mouseleave', () => {
+      pointerInside = false;
+      startTimer();
+    });
+    carousel.addEventListener('focusin', () => {
+      focusWithin = true;
+      stopTimer();
+    });
+    carousel.addEventListener('focusout', (event) => {
+      const nextTarget = (event as FocusEvent).relatedTarget as Node | null;
+      if (nextTarget && carousel.contains(nextTarget)) return;
+      focusWithin = false;
+      startTimer();
+    });
+
+    reducedMotion.addEventListener('change', () => {
+      if (reducedMotion.matches) manuallyPaused = true;
+      syncToggleButtons();
+      startTimer();
+    });
 
     document.addEventListener('visibilitychange', () => {
-      if (document.hidden) window.clearInterval(timer);
+      if (document.hidden) stopTimer();
       else startTimer();
     });
 
+    syncToggleButtons();
     startTimer();
   };
 
@@ -502,22 +597,28 @@ const steps = [
 
           event.preventDefault();
 
-          const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-          const bounds = target.getBoundingClientRect();
-          const alreadyVisible = bounds.top < window.innerHeight * 0.45 && bounds.bottom > window.innerHeight * 0.55;
+          const moveToTarget = () => {
+            const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const bounds = target.getBoundingClientRect();
+            const alreadyVisible = bounds.top < window.innerHeight * 0.45 && bounds.bottom > window.innerHeight * 0.55;
 
-          target.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
+            target.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
+
+            window.setTimeout(
+              () => {
+                target.classList.remove('is-section-highlighted');
+                void target.offsetWidth;
+                target.classList.add('is-section-highlighted');
+                window.setTimeout(() => target.classList.remove('is-section-highlighted'), 1100);
+              },
+              alreadyVisible || reducedMotion ? 0 : 520
+            );
+          };
+
           window.history.replaceState(null, '', href);
-
-          window.setTimeout(
-            () => {
-              target.classList.remove('is-section-highlighted');
-              void target.offsetWidth;
-              target.classList.add('is-section-highlighted');
-              window.setTimeout(() => target.classList.remove('is-section-highlighted'), 1100);
-            },
-            alreadyVisible || reducedMotion ? 0 : 520
-          );
+          const menuIsOpen = document.getElementById('header')?.classList.contains('expanded');
+          if (menuIsOpen) window.requestAnimationFrame(moveToTarget);
+          else moveToTarget();
         });
       });
   };
@@ -534,6 +635,10 @@ const steps = [
     background-size: 120px 120px;
   }
 
+  .hero-layout {
+    transform: translateY(-0.75rem);
+  }
+
   .hero-copy > :not(.hero-title) {
     animation: hero-copy-in 800ms cubic-bezier(0.22, 1, 0.36, 1) both;
   }
@@ -548,6 +653,12 @@ const steps = [
   .hero-line > span {
     display: block;
     animation: hero-line-in 980ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @media (min-width: 1024px) {
+    .hero-line > span {
+      white-space: nowrap;
+    }
   }
 
   .hero-line:nth-child(1) > span {
@@ -567,7 +678,7 @@ const steps = [
   }
 
   .hero-portrait-frame {
-    animation: hero-portrait-in 1050ms cubic-bezier(0.22, 1, 0.36, 1) 180ms both;
+    animation: hero-portrait-in 980ms cubic-bezier(0.16, 1, 0.3, 1) 230ms both;
   }
 
   .parallax-image {
@@ -725,7 +836,7 @@ const steps = [
       background-color 200ms ease;
   }
 
-  .carousel-dot[aria-current='true'] {
+  .carousel-dot[aria-selected='true'] {
     width: 4rem;
     background: #dba480;
   }
@@ -766,13 +877,13 @@ const steps = [
   @keyframes hero-portrait-in {
     from {
       opacity: 0;
-      clip-path: inset(0 100% 0 0);
-      transform: translateX(2.5rem) scale(0.98);
+      clip-path: inset(100% 0 0 0);
+      transform: translateY(2.5rem) scale(0.985);
     }
     to {
       opacity: 1;
       clip-path: inset(0);
-      transform: translateX(0) scale(1);
+      transform: translateY(0) scale(1);
     }
   }
 
@@ -975,6 +1086,10 @@ const steps = [
   }
 
   @media (max-width: 767px) {
+    .hero-layout {
+      transform: none;
+    }
+
     .hero-copy > :not(.hero-title),
     .hero-line > span {
       animation-duration: 650ms;
@@ -982,7 +1097,7 @@ const steps = [
 
     .hero-portrait-frame {
       animation-duration: 800ms;
-      animation-delay: 260ms;
+      animation-delay: 220ms;
     }
 
     :global(html.motion-ready) [data-reveal],
@@ -1009,7 +1124,7 @@ const steps = [
       width: 1.75rem;
     }
 
-    .carousel-dot[aria-current='true'] {
+    .carousel-dot[aria-selected='true'] {
       width: 3rem;
     }
   }
