@@ -19,6 +19,13 @@ const whenExternalScripts = (items: (() => AstroIntegration) | (() => AstroInteg
 export default defineConfig({
   output: 'static',
 
+  redirects: {
+    '/guias': '/perguntas',
+    '/guias/primeira-reuniao-arquiteta': '/perguntas/primeira-reuniao-arquiteta',
+    '/guias/preparar-remodelacao': '/perguntas/preparar-remodelacao',
+    '/guias/antes-de-comprar-terreno': '/perguntas/antes-de-comprar-terreno',
+  },
+
   integrations: [
     tailwind({
       applyBaseStyles: false,

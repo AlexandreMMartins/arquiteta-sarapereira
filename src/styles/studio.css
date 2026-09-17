@@ -210,6 +210,16 @@ button {
   font-size: 1.15rem;
   color: var(--muted);
 }
+.intro.questions-intro {
+  padding: 44px 0 32px;
+}
+.section.questions-list {
+  padding-top: 0;
+}
+.questions-list .guide-row div p {
+  margin-top: 12px;
+  color: var(--muted);
+}
 .actions {
   display: flex;
   align-items: center;
@@ -818,6 +828,9 @@ button {
   }
   .intro {
     padding: 45px 0;
+  }
+  .intro.questions-intro {
+    padding: 32px 0 26px;
   }
   .intro h1 {
     font-size: clamp(2.75rem, 10vw, 4.5rem);

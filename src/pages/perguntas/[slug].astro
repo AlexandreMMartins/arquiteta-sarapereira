@@ -11,7 +11,7 @@ const { guide } = Astro.props;
 <Layout title={`${guide.title} - Sara Pereira`} description={guide.intro}
   ><section class="intro wrap">
     <nav class="breadcrumb" aria-label="Localização na página">
-      <a href="/">Início</a><span>/</span><a href="/guias">Perguntas</a><span>/</span><span>{guide.category}</span>
+      <a href="/">Início</a><span>/</span><a href="/perguntas">Perguntas</a><span>/</span><span>{guide.category}</span>
     </nav><p class="eyebrow">{guide.category}</p><h1 style="max-width:1150px;font-size:clamp(2.6rem,5.3vw,5.2rem)">
       {guide.title}
     </h1><p>{guide.intro}</p>
@@ -36,7 +36,7 @@ const { guide } = Astro.props;
       }<p style="margin-top:45px;font-size:.9rem">
         Esta resposta é uma introdução à preparação de um projeto. A avaliação técnica e os próximos passos dependem do
         imóvel e da intervenção pretendida.
-      </p><a href="/guias" class="text-link" style="margin-top:25px">Voltar às perguntas</a>
+      </p><a href="/perguntas" class="text-link" style="margin-top:25px">Voltar às perguntas</a>
     </article><aside class="aside-box">
       <p class="eyebrow" style="margin-bottom:20px">Da dúvida ao projeto</p><h3>Vamos olhar para o seu caso?</h3><p>
         Indique o que pretende fazer e onde se encontra o imóvel ou terreno.
