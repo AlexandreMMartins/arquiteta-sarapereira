@@ -2,7 +2,6 @@
 import { Image } from 'astro:assets';
 import Layout from '~/layouts/StudioLayout.astro';
 import ContactCTA from '~/components/site/ContactCTA.astro';
-import building from '~/assets/images/transformation/building.png';
 import remodel from '~/assets/images/services/remodelacao.png';
 import architecture from '~/assets/images/services/arquitetura.png';
 import consulting from '~/assets/images/services/consultoria.png';
@@ -52,16 +51,16 @@ const offerings = [
           <a href="/abordagem" class="text-link">Conhecer a abordagem</a>
         </div>
       </div>
-      <figure class="hero-image">
+      <figure class="hero-image hero-portrait">
         <Image
-          src={building}
-          alt="Visualização ilustrativa de uma moradia em torno de um pátio, integrada na paisagem"
-          widths={[640, 960, 1440, 1920]}
-          sizes="(max-width: 760px) 90vw, 56vw"
+          src={portrait}
+          alt="Sara Pereira, arquiteta"
+          widths={[420, 640, 840]}
+          sizes="(max-width: 760px) 78vw, 34vw"
           loading="eager"
           fetchpriority="high"
           format="webp"
-        /><figcaption class="image-note">Visualização arquitetónica ilustrativa.</figcaption>
+        /><figcaption class="image-note">Sara Pereira, arquiteta.</figcaption>
       </figure>
     </div>
     <div class="hero-bottom wrap">
