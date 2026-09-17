@@ -1,0 +1,377 @@
+---
+import { Image } from 'astro:assets';
+import furnishedPlan from '~/assets/images/transformation/furnished-plan.png';
+import model from '~/assets/images/transformation/model.png';
+import building from '~/assets/images/transformation/building.png';
+
+const stages = [
+  {
+    title: 'O traçado',
+    description: 'A organização dos espaços dá forma à ideia.',
+    image: furnishedPlan,
+    alt: 'Planta ilustrativa mobilada da moradia em L, com pátio, entrada em madeira e envidraçado voltado para o exterior.',
+  },
+  {
+    title: 'O volume',
+    description: 'A forma, a luz e a proporção ganham dimensão.',
+    image: model,
+    alt: 'Modelo tridimensional branco da mesma moradia e pátio.',
+  },
+  {
+    title: 'O espaço',
+    description: 'Os materiais dão vida ao que imaginámos.',
+    image: building,
+    alt: 'Visualização fotorrealista da mesma moradia, com paredes brancas e pátio em pedra.',
+  },
+];
+---
+
+<section id="do-desenho-ao-espaco" class="transformation" aria-labelledby="transformation-title">
+  <div class="transformation-sticky">
+    <header>
+      <div>
+        <p class="transformation-eyebrow">Da ideia à forma</p>
+        <h2 id="transformation-title">Do desenho ao espaço.</h2>
+      </div>
+      <p class="scroll-hint">Percorra a página para acompanhar a transformação.</p>
+    </header>
+    <div class="transformation-images">
+      <canvas
+        class="growing-house"
+        aria-label="Planta tridimensional com paredes que sobem à medida que percorre a página"
+        role="img"></canvas>
+      {
+        stages.map((stage, index) => (
+          <figure data-transformation-frame={index}>
+            {stage.image ? (
+              <Image
+                src={stage.image}
+                alt={stage.alt}
+                widths={[640, 1024, 1536]}
+                sizes="(max-width: 768px) 100vw, 1200px"
+                format="webp"
+                loading="lazy"
+              />
+            ) : (
+              <img src={furnishedPlan.src} width="1536" height="1024" alt={stage.alt} loading="lazy" />
+            )}
+            <figcaption>{stage.title}</figcaption>
+          </figure>
+        ))
+      }
+    </div>
+    <ol class="transformation-stages">
+      {
+        stages.map((stage, index) => (
+          <li data-transformation-step={index}>
+            <div>
+              <>
+                <h3>{stage.title}</h3>
+                <p>{stage.description}</p>
+              </>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+    <p class="study-note">Sequência ilustrativa: planta, volume 3D e visualização final.</p>
+  </div>
+</section>
+
+<script>
+  import { createGrowingHouse } from '~/utils/growingHouse';
+  const setupTransformation = async () => {
+    const section = document.querySelector<HTMLElement>('.transformation');
+    if (!section || section.dataset.ready) return;
+    section.dataset.ready = 'true';
+    const frames = [...section.querySelectorAll<HTMLElement>('[data-transformation-frame]')];
+    const steps = [...section.querySelectorAll<HTMLElement>('[data-transformation-step]')];
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const canvas = section.querySelector<HTMLCanvasElement>('canvas');
+    const finalImage = frames[2].querySelector<HTMLImageElement>('img');
+    // Decode every layer before pinning so a quick scroll cannot expose an unloaded image.
+    const images = [...section.querySelectorAll<HTMLImageElement>('figure img')];
+    images.forEach((image) => {
+      image.loading = 'eager';
+    });
+    await Promise.all(images.map((image) => image.decode().catch(() => undefined)));
+    if (!section.isConnected) return;
+    const planImage = frames[0].querySelector<HTMLImageElement>('img');
+    const house =
+      canvas && finalImage && planImage
+        ? createGrowingHouse(canvas, finalImage.currentSrc || finalImage.src, planImage.currentSrc || planImage.src)
+        : null;
+    section.classList.toggle('has-growing-house', !!house);
+    let frame = 0;
+    let displayed = -1;
+    let previousTime = 0;
+    const clamp = (value: number) => Math.min(1, Math.max(0, value));
+    const phase = (value: number, start: number, end: number) => {
+      const t = clamp((value - start) / (end - start));
+      return t * t * (3 - 2 * t);
+    };
+    const render = (time = performance.now()) => {
+      frame = 0;
+      section.classList.toggle('is-interactive', !motion.matches);
+      if (motion.matches) {
+        frames.forEach((item) => {
+          item.removeAttribute('style');
+          item.removeAttribute('aria-hidden');
+        });
+        canvas?.removeAttribute('style');
+        displayed = -1;
+        steps.forEach((item) => {
+          item.classList.remove('is-active');
+          item.removeAttribute('aria-current');
+        });
+        return;
+      }
+      const bounds = section.getBoundingClientRect();
+      const sticky = section.firstElementChild as HTMLElement;
+      const stickyTop = Number.parseFloat(getComputedStyle(sticky).top) || 0;
+      const target = clamp((stickyTop - bounds.top) / Math.max(1, bounds.height - sticky.offsetHeight));
+      const elapsed = previousTime ? Math.min(time - previousTime, 64) : 16;
+      previousTime = time;
+      if (displayed < 0) displayed = target;
+      displayed += (target - displayed) * (1 - Math.exp(-elapsed / 100));
+      if (Math.abs(target - displayed) < 0.0001) displayed = target;
+      const progress = displayed;
+      const modelReveal = phase(progress, 0.2, 0.5);
+      const photoReveal = phase(progress, 0.7, 0.92);
+      house?.draw(progress);
+      frames[0].style.opacity = house ? '0' : '1';
+      frames[1].style.opacity = house ? '0' : String(modelReveal);
+      frames[2].style.opacity = house ? '0' : String(photoReveal);
+      section.style.setProperty('--journey-progress', String(progress));
+      const active = progress >= 0.7 ? 2 : progress >= 0.2 ? 1 : 0;
+      if (canvas)
+        canvas.setAttribute(
+          'aria-label',
+          [
+            'Planta ilustrativa mobilada da moradia e do pátio.',
+            'As paredes elevam-se a partir do mesmo perímetro exterior.',
+            'Visualização final da moradia com o mesmo enquadramento.',
+          ][active]
+        );
+      frames.forEach((item) => item.setAttribute('aria-hidden', house ? 'true' : 'false'));
+      steps.forEach((step, index) => {
+        step.classList.toggle('is-active', index === active);
+        if (index === active) step.setAttribute('aria-current', 'step');
+        else step.removeAttribute('aria-current');
+      });
+      if (displayed !== target) frame = requestAnimationFrame(render);
+    };
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(render);
+    };
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    motion.addEventListener('change', schedule);
+    render();
+    document.addEventListener(
+      'astro:before-swap',
+      () => {
+        window.removeEventListener('scroll', schedule);
+        window.removeEventListener('resize', schedule);
+        motion.removeEventListener('change', schedule);
+        cancelAnimationFrame(frame);
+        house?.dispose();
+      },
+      { once: true }
+    );
+  };
+  setupTransformation();
+  document.addEventListener('astro:page-load', setupTransformation);
+</script>
+
+<style>
+  .transformation {
+    background: var(--paper, #fff);
+    color: #1f2825;
+    padding-inline: var(--outer-inset, 1.5rem);
+  }
+  .transformation-sticky {
+    max-width: var(--content-width, 1280px);
+    margin: auto;
+    padding: 2rem 0 1.25rem;
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  .transformation-eyebrow {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    margin-bottom: 0.65rem;
+  }
+  h2 {
+    font-size: clamp(2rem, 4vw, 3.6rem);
+    font-weight: 500;
+    line-height: 1.12;
+    letter-spacing: -0.04em;
+  }
+  .scroll-hint {
+    max-width: 17rem;
+    font-size: 0.875rem;
+    color: #5a625d;
+    display: none;
+  }
+  .transformation-images {
+    display: grid;
+    gap: 1rem;
+  }
+  .growing-house {
+    display: none;
+  }
+  .is-interactive.has-growing-house .growing-house {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  figure {
+    margin: 0;
+  }
+  figure img,
+  figure svg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  figcaption {
+    padding: 0.6rem 0;
+  }
+  .transformation-stages {
+    list-style: none;
+    padding: 0;
+    margin: 1.25rem 0 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+  .transformation-stages li {
+    border-top: 2px solid #c3c7bf;
+    padding-top: 0.8rem;
+    display: flex;
+    gap: 0.75rem;
+    transition:
+      border-color 250ms ease,
+      color 250ms ease;
+  }
+  .stage-number {
+    font-size: 0.875rem;
+    color: #59625c;
+  }
+  h3 {
+    font-size: 1.05rem;
+    font-weight: 500;
+  }
+  .transformation-stages p {
+    font-size: 0.875rem;
+    color: #59625c;
+    margin-top: 0.2rem;
+  }
+  .study-note {
+    font-size: 0.75rem;
+    color: #59625c;
+    margin-top: 1rem;
+  }
+  .is-interactive {
+    height: 380svh;
+  }
+  .is-interactive .transformation-sticky {
+    position: sticky;
+    top: calc(var(--header-height, 100px) + 16px);
+  }
+  .is-interactive .transformation-images {
+    position: relative;
+    height: min(54svh, calc(100svh - var(--header-height, 100px) - 280px), 680px);
+    overflow: hidden;
+    perspective: 1200px;
+    background: var(--paper, #fff);
+    border-radius: 3px;
+    isolation: isolate;
+    width: min(100%, 81svh, calc((100svh - var(--header-height, 100px) - 280px) * 1.5));
+    margin-inline: auto;
+  }
+  .is-interactive figure {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .is-interactive figure:first-child img {
+    object-fit: contain;
+    mix-blend-mode: multiply;
+  }
+  .is-interactive figure:first-child {
+    will-change: transform, opacity;
+  }
+  .is-interactive figure:not(:first-child) {
+    opacity: 0;
+    will-change: opacity, filter;
+  }
+  .is-interactive figcaption {
+    display: none;
+  }
+  .is-interactive .scroll-hint {
+    display: block;
+  }
+  .is-active {
+    border-color: #8c4c2f !important;
+  }
+  .is-active h3,
+  .is-active .stage-number {
+    color: #8c4c2f;
+  }
+  @media (max-width: 640px) {
+    header {
+      display: block;
+      margin-bottom: 1rem;
+    }
+    .scroll-hint {
+      margin-top: 0.8rem;
+      max-width: none;
+    }
+    .is-interactive .transformation-images {
+      height: min(40svh, calc(100svh - var(--header-height, 85px) - 260px));
+      width: min(100%, 60svh);
+    }
+    .transformation-stages {
+      gap: 0.7rem;
+    }
+    .transformation-stages li {
+      display: block;
+    }
+    .transformation-stages p {
+      font-size: 0.875rem;
+      line-height: 1.4;
+    }
+    h3 {
+      font-size: 1rem;
+    }
+    .is-interactive {
+      height: 340svh;
+    }
+  }
+  @media (max-height: 650px) and (min-width: 641px) {
+    .transformation-sticky {
+      padding-top: 0.75rem;
+    }
+    .is-interactive .transformation-images {
+      height: min(48svh, calc(100svh - var(--header-height, 100px) - 200px));
+      width: min(100%, 72svh);
+    }
+    .transformation-stages p,
+    .scroll-hint {
+      display: none !important;
+    }
+    h2 {
+      font-size: 2rem;
+    }
+  }
+</style>

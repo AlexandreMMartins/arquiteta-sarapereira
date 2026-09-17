@@ -1,1213 +1,187 @@
 ---
 import { Image } from 'astro:assets';
-import { Icon } from 'astro-icon/components';
-
+import Layout from '~/layouts/StudioLayout.astro';
+import ContactCTA from '~/components/site/ContactCTA.astro';
+import building from '~/assets/images/transformation/building.png';
+import remodel from '~/assets/images/services/remodelacao.png';
+import architecture from '~/assets/images/services/arquitetura.png';
+import consulting from '~/assets/images/services/consultoria.png';
 import portrait from '~/assets/images/sobre-v2.png';
-import serviceArchitecture from '~/assets/images/services/arquitetura.png';
-import serviceConsulting from '~/assets/images/services/consultoria.png';
-import serviceExecution from '~/assets/images/services/execucao.png';
-import serviceInteriors from '~/assets/images/services/interiores.png';
-import serviceSurvey from '~/assets/images/services/levantamentos.png';
-import serviceRemodel from '~/assets/images/services/remodelacao.png';
-import Layout from '~/layouts/PageLayout.astro';
-
-const metadata = {
-  title: 'Sara Pereira — Arquitetura',
-  description:
-    'Projetos de arquitetura, remodelação e interiores em Tomar, pensados para transformar espaços com respeito pelo que já existe.',
-  ignoreTitleTemplate: true,
-};
-
-const services = [
+const offerings = [
   {
     number: '01',
-    title: 'Levantamentos arquitetónicos',
-    description: 'Levantamentos rigorosos para reabilitação, ampliação, remodelação e atualização de áreas no IMI.',
-    detail:
-      'Registamos o espaço existente com rigor para criar uma base segura para todas as decisões seguintes. O levantamento pode incluir medição, desenho técnico e organização da informação necessária ao projeto.',
-    highlights: ['Medição do existente', 'Desenhos de levantamento', 'Atualização de áreas'],
-    image: serviceSurvey,
+    title: 'Uma casa para a sua vida.',
+    name: 'Arquitetura',
+    description: 'Projetos de raiz que nascem do lugar, das suas necessidades e da forma como quer viver.',
+    image: architecture,
+    href: '/servicos/projetos-arquitetura',
   },
   {
     number: '02',
-    title: 'Projetos de remodelação',
-    description:
-      'Espaços mais funcionais e acolhedores, desenhados a partir da identidade e das qualidades do existente.',
-    detail:
-      'Partimos das qualidades da casa e da forma como é vivida para reorganizar circulações, luz, arrumação e materiais. Cada intervenção procura melhorar o quotidiano sem apagar a memória do lugar.',
-    highlights: ['Estudo de soluções', 'Reorganização funcional', 'Escolha de materiais'],
-    image: serviceRemodel,
+    title: 'Um novo olhar sobre o existente.',
+    name: 'Remodelação e reabilitação',
+    description: 'Transformar espaços, melhorar o conforto e valorizar aquilo que os torna únicos.',
+    image: remodel,
+    href: '/servicos/remodelacao-reabilitacao',
   },
   {
     number: '03',
-    title: 'Projetos de arquitetura',
-    description: 'Projetos de raiz adaptados ao lugar, ao orçamento e à forma como cada cliente deseja viver.',
-    detail:
-      'Desenvolvemos o projeto desde o conceito inicial até ao licenciamento, articulando programa, implantação, conforto e linguagem arquitetónica numa solução coerente e possível de construir.',
-    highlights: ['Estudo prévio', 'Licenciamento', 'Coordenação do projeto'],
-    image: serviceArchitecture,
+    title: 'Clareza antes de decidir.',
+    name: 'Consultoria e terrenos',
+    description: 'Compreender as possibilidades de um imóvel ou terreno antes de dar o próximo passo.',
+    image: consulting,
+    href: '/servicos/viabilidade-terrenos',
   },
-  {
-    number: '04',
-    title: 'Projetos de execução',
-    description:
-      'Desenhos técnicos, definição de acabamentos e listas de materiais para uma obra clara e bem preparada.',
-    detail:
-      'Transformamos o projeto em informação precisa para a obra. Detalhes construtivos, mapas de acabamentos e especificações reduzem dúvidas, apoiam orçamentos e protegem a intenção do projeto.',
-    highlights: ['Detalhes construtivos', 'Mapas de acabamentos', 'Listas de materiais'],
-    image: serviceExecution,
-  },
-  {
-    number: '05',
-    title: 'Design de interiores',
-    description: 'Ambientes únicos e coerentes, desenvolvidos em parceria com profissionais de design de interiores.',
-    detail:
-      'Criamos ambientes completos onde mobiliário, iluminação, cor e textura trabalham em conjunto. O objetivo é que cada divisão seja confortável, pessoal e coerente com a arquitetura da casa.',
-    highlights: ['Conceito de interiores', 'Mobiliário e iluminação', 'Paleta de materiais'],
-    image: serviceInteriors,
-  },
-  {
-    number: '06',
-    title: 'Consultoria',
-    description:
-      'Apoio técnico em decisões de remodelação, viabilidade, leitura de PDM e primeiros passos de um projeto.',
-    detail:
-      'Uma sessão de consultoria ajuda a esclarecer possibilidades antes de avançar. Analisamos condicionantes, prioridades e próximos passos para que possa decidir com mais segurança.',
-    highlights: ['Análise de viabilidade', 'Leitura de PDM', 'Orientação inicial'],
-    image: serviceConsulting,
-  },
-];
-
-const steps = [
-  ['Conversamos', 'Percebemos o espaço, as necessidades, o orçamento e aquilo que imagina para o futuro.'],
-  ['Desenhamos', 'Transformamos essas ideias numa proposta clara, funcional e sensível ao lugar.'],
-  ['Acompanhamos', 'Preparamos a execução e ajudamos a manter cada decisão alinhada com o projeto.'],
 ];
 ---
 
-<Layout metadata={metadata}>
-  <section class="hero-shell overflow-hidden">
-    <div
-      class="hero-layout mx-auto grid min-h-[calc(100svh-72px)] max-w-7xl items-center gap-10 px-5 py-10 sm:gap-12 sm:py-12 md:px-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-14 lg:py-10"
-    >
-      <div class="hero-copy relative z-10 max-w-3xl">
-        <h1
-          class="hero-title text-[clamp(3.6rem,9vw,8.4rem)] font-medium leading-[1.06] tracking-[-0.065em] text-stone-950 lg:text-[clamp(4.3rem,6.1vw,5.55rem)]"
-        >
-          <span class="hero-line"><span>Espaços com</span></span>
-          <span class="hero-line"><span>memória e futuro.</span></span>
+<Layout
+  title="Sara Pereira - Arquiteta em Tomar · Arquitetura e reabilitação"
+  description="Arquiteta sediada em Tomar, com projetos noutras localidades. Arquitetura, remodelação, reabilitação e consultoria. Conte-me a sua ideia."
+>
+  <section class="hero">
+    <div class="hero-opening wrap">
+      <div class="hero-top">
+        <p class="eyebrow">Arquitetura para habitar.</p>
+        <h1>
+          <span>Espaços com memória.</span><span>Lugar para o <em>futuro.</em></span>
         </h1>
-        <p class="mt-8 max-w-xl text-lg leading-relaxed text-stone-600 md:text-xl">
-          Projetos atentos ao que já existe e à forma como cada pessoa vive, desde o primeiro esboço até ao último
-          detalhe.
-        </p>
-        <div class="mt-10 flex flex-wrap gap-3">
-          <a class="btn btn-primary" href="#contactos">Falar sobre um projeto</a>
-          <a class="btn btn-secondary" href="#servicos">Conhecer os serviços</a>
+        <p class="hero-description">Arquitetura, remodelação e reabilitação, pensadas à medida de quem habita.</p>
+        <div class="actions">
+          <a href="/contactos" class="button">Falar sobre o meu projeto</a>
+          <a href="/abordagem" class="text-link">Conhecer a abordagem</a>
         </div>
       </div>
-
-      <div class="hero-portrait relative mx-auto w-full max-w-sm sm:max-w-md lg:max-w-none">
-        <div
-          class="hero-portrait-frame relative mx-auto aspect-[4/5] w-[82%] overflow-hidden rounded-t-[11rem] bg-[#e9dfd0] shadow-xl shadow-stone-900/10 lg:w-[min(88%,calc(80svh-7.2rem))]"
-        >
-          <Image
-            src={portrait}
-            alt="Sara Pereira, arquiteta"
-            class="parallax-image h-full w-full object-cover object-center"
-            data-parallax
-            data-parallax-strength="0.55"
-            widths={[420, 640, 840]}
-            sizes="(max-width: 1024px) 80vw, 32vw"
-            loading="eager"
-          />
-        </div>
-      </div>
+      <figure class="hero-image">
+        <Image
+          src={building}
+          alt="Visualização ilustrativa de uma moradia em torno de um pátio, integrada na paisagem"
+          widths={[640, 960, 1440, 1920]}
+          sizes="(max-width: 760px) 90vw, 56vw"
+          loading="eager"
+          fetchpriority="high"
+          format="webp"
+        /><figcaption class="image-note">Visualização arquitetónica ilustrativa.</figcaption>
+      </figure>
+    </div>
+    <div class="hero-bottom wrap">
+      <p>A partir de Tomar. Onde o seu projeto nos levar.</p>
+      <a href="#servicos" class="hero-discover">Descobrir possibilidades <span aria-hidden="true">↓</span></a>
     </div>
   </section>
-
-  <section id="sobre" class="scroll-mt-24 bg-[#1f2825] text-white">
-    <div class="mx-auto grid max-w-7xl gap-12 px-5 py-20 md:px-8 md:py-28 lg:grid-cols-[0.7fr_1.3fr]">
-      <div data-reveal="left">
-        <p class="eyebrow eyebrow-light">Sobre</p>
-        <p class="mt-6 max-w-xs text-sm leading-relaxed text-stone-400">
-          Uma prática próxima, orientada pela curiosidade, pela função e pelo respeito pelo contexto.
-        </p>
-      </div>
-      <div>
-        <h2
-          class="max-w-4xl text-4xl font-medium leading-tight tracking-[-0.035em] md:text-6xl"
-          data-reveal="right"
-          data-reveal-repeat
-        >
-          “Desde pequena que o meu sonho era criar e transformar casas.”
-        </h2>
-        <div class="mt-10 grid gap-6 text-base leading-relaxed text-stone-300 md:grid-cols-2 md:text-lg">
-          <p>
-            Da construção de cabanas e dos Legos nasceu uma vontade que se tornou profissão. A formação em arquitetura e
-            a experiência de Erasmus em Veneza reforçaram uma convicção: antes de intervir, é preciso compreender e
-            valorizar o que já está feito.
-          </p>
-          <p>
-            É desse equilíbrio que parte cada projeto — inovar sem apagar, melhorar sem descaracterizar e criar lugares
-            acolhedores, funcionais e profundamente ligados a quem os habita.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="servicos" class="scroll-mt-24 bg-[#f3f0e9]">
-    <div class="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
-      <div class="grid gap-8 lg:grid-cols-2 lg:items-end">
-        <div data-reveal="left" data-reveal-repeat>
-          <p class="eyebrow">Serviços</p>
-          <h2 class="mt-6 text-4xl font-medium tracking-[-0.04em] text-stone-950 md:text-6xl">
-            Do espaço existente<br /> à ideia construída.
+  <section class="section" id="servicos">
+    <div class="wrap">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow" style="margin-bottom:24px">01 / O que pretende fazer?</p><h2>
+            Cada espaço.<br />Um <em>ponto de partida.</em>
           </h2>
-        </div>
-        <p data-reveal="right" class="max-w-lg text-lg leading-relaxed text-stone-600 lg:justify-self-end">
-          Cada projeto começa com uma leitura atenta das necessidades, do lugar e dos recursos disponíveis.
-        </p>
-      </div>
-
-      <div class="mt-14 grid border-t border-stone-300 md:grid-cols-2 lg:grid-cols-3">
+        </div><a href="/servicos" class="text-link">Explorar todos os serviços</a>
+      </div><div class="service-grid">
         {
-          services.map((service, index) => (
-            <a
-              href="#detalhes-servicos"
-              data-service-trigger={index}
-              data-reveal="up"
-              style={`--reveal-delay: ${(index % 3) * 90}ms`}
-              class="service-card group block border-b border-stone-300 py-8 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8c4c2f] focus-visible:ring-inset md:px-7 md:even:border-l lg:border-l lg:first:border-l-0"
-              aria-label={`Ver detalhes de ${service.title}`}
-            >
-              <div class="flex items-start justify-end">
-                <Icon
-                  name="tabler:arrow-down-right"
-                  class="h-5 w-5 text-stone-400 transition group-hover:translate-x-1 group-hover:translate-y-1 group-hover:text-[#ab5c36]"
+          offerings.map((item) => (
+            <a class="service-card" href={item.href}>
+              <>
+                <span class="number">
+                  {item.number} / {item.name}
+                </span>
+                <Image
+                  src={item.image}
+                  alt={`Imagem ilustrativa de ${item.name.toLowerCase()}`}
+                  widths={[420, 640, 900]}
+                  sizes="(max-width:720px) 88vw, 30vw"
+                  loading="lazy"
+                  format="webp"
                 />
-              </div>
-              <h3 class="mt-10 text-2xl font-medium tracking-tight text-stone-900">{service.title}</h3>
-              <p class="mt-4 leading-relaxed text-stone-600">{service.description}</p>
-              <span class="mt-6 inline-block text-sm font-semibold text-[#8c4c2f] opacity-0 transition group-hover:opacity-100 group-focus-visible:opacity-100">
-                Explorar serviço
-              </span>
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+                <span class="text-link">Conhecer o serviço</span>
+              </>
             </a>
           ))
         }
+      </div><p class="image-note" style="margin-top:22px">As imagens desta seleção são ilustrativas dos serviços.</p>
+    </div>
+  </section>
+  <section class="section dark">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">Antes do primeiro desenho</p><h2>Um terreno.<br />Muitas <em>perguntas.</em></h2><p>
+          Está a pensar comprar um terreno ou transformar um imóvel? A consultoria ajuda a compreender condicionantes,
+          organizar prioridades e perceber que informação falta para decidir.
+        </p><div class="actions">
+          <a href="/servicos/viabilidade-terrenos" class="button button-light">Explorar a consultoria</a>
+        </div>
+      </div><div>
+        <p style="font-family:var(--serif);font-size:clamp(1.9rem,3vw,3rem);line-height:1.45;margin:0">
+          “O primeiro passo é perceber<br />o que o lugar pode ser.”
+        </p><p style="margin-top:30px">
+          Análise do contexto · Leitura de PDM<br />Possibilidades de intervenção · Próximos passos
+        </p>
       </div>
     </div>
   </section>
-
-  <section
-    id="detalhes-servicos"
-    class="scroll-mt-8 bg-[#1f2825] text-white"
-    data-services-carousel
-    role="region"
-    aria-roledescription="carrossel"
-    aria-label="Detalhes dos serviços"
-  >
-    <div class="mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-20">
-      <div class="mb-8 flex items-end justify-between gap-6" data-reveal="up" data-reveal-repeat>
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow" style="margin-bottom:25px">02 / Como trabalhamos</p><h2>
+        Próximos em cada <em>etapa.</em>
+      </h2><div class="steps">
+        {
+          [
+            ['01', 'Ouvir', 'Conhecer as suas ideias, o espaço, as prioridades e os recursos disponíveis.'],
+            ['02', 'Compreender', 'Ler o lugar e o existente, identificar condicionantes e definir o caminho.'],
+            ['03', 'Desenhar', 'Dar forma a soluções coerentes, da organização dos espaços aos materiais.'],
+            ['04', 'Preparar', 'Desenvolver a informação necessária às fases contratadas do projeto.'],
+          ].map(([number, title, description]) => (
+            <article class="step">
+              <>
+                <span>{number}</span>
+                <h3>{title}</h3>
+                <p>{description}</p>
+              </>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+  <section class="section" id="sobre" style="border-top:1px solid var(--line)">
+    <div class="wrap split">
+      <Image
+        src={portrait}
+        alt="Sara Pereira, arquiteta"
+        widths={[420, 640, 900]}
+        sizes="(max-width:720px) 88vw, 42vw"
+        loading="lazy"
+        class="portrait"
+        format="webp"
+      /><div>
+        <p class="eyebrow">03 / Sara Pereira</p><h2>Inovar sem apagar.<br /><em>Transformar com sentido.</em></h2><p>
+          A vontade de criar e transformar casas nasceu cedo. A formação em arquitetura e a experiência de Erasmus em
+          Veneza reforçaram o respeito pelo que já existe.
+        </p><p>
+          É desse equilíbrio que parte cada projeto: compreender o lugar, ouvir quem o vai habitar e encontrar espaço
+          para uma nova história.
+        </p><div class="actions"><a href="/sobre" class="text-link">Conhecer a Sara</a></div>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <div class="section-heading">
         <div>
-          <p class="eyebrow eyebrow-light">Em detalhe</p>
-          <p class="mt-4 max-w-md text-stone-400">
-            Explore cada serviço e descubra como podemos acompanhar o seu projeto.
-          </p>
-        </div>
-        <div class="hidden items-center gap-3 sm:flex">
-          <button class="carousel-arrow" type="button" data-carousel-prev aria-label="Serviço anterior">
-            <Icon name="tabler:arrow-left" class="h-5 w-5" />
-          </button>
-          <button
-            class="carousel-arrow"
-            type="button"
-            data-carousel-toggle
-            aria-label="Pausar rotação automática"
-            aria-pressed="false"
-          >
-            <Icon name="tabler:player-pause" class="h-5 w-5" data-carousel-pause-icon />
-            <Icon name="tabler:player-play" class="hidden h-5 w-5" data-carousel-play-icon />
-          </button>
-          <button class="carousel-arrow" type="button" data-carousel-next aria-label="Serviço seguinte">
-            <Icon name="tabler:arrow-right" class="h-5 w-5" />
-          </button>
-        </div>
-      </div>
-
-      <p class="sr-only" aria-live="polite" aria-atomic="true" data-carousel-announcement></p>
-      <div class="service-carousel-stage" data-reveal="up" style="--reveal-delay: 100ms" aria-live="off">
-        {
-          services.map((service, index) => (
-            <article
-              id={`service-slide-${index}`}
-              data-service-slide
-              hidden={index !== 0}
-              role="group"
-              aria-roledescription="slide"
-              aria-label={`${index + 1} de ${services.length}`}
-            >
-              <div class="grid overflow-hidden rounded-sm bg-[#29332f] lg:grid-cols-[1.05fr_0.95fr]">
-                <div class="service-media aspect-[4/3] overflow-hidden lg:aspect-auto lg:min-h-[28rem]">
-                  <Image
-                    src={service.image}
-                    alt={`Ambiente representativo de ${service.title.toLowerCase()}`}
-                    class="parallax-image h-full w-full object-cover"
-                    data-parallax
-                    data-parallax-strength="0.35"
-                    widths={[640, 960, 1280]}
-                    sizes="(max-width: 1024px) 100vw, 55vw"
-                  />
-                </div>
-                <div class="flex flex-col justify-between p-7 md:p-8 lg:p-10">
-                  <div>
-                    <h3 class="text-3xl font-medium leading-tight tracking-[-0.035em] md:text-4xl">{service.title}</h3>
-                    <p class="mt-5 text-base leading-relaxed text-stone-300 lg:text-lg">{service.detail}</p>
-                    <ul class="mt-6 space-y-2.5 border-t border-white/15 pt-5">
-                      {service.highlights.map((highlight) => (
-                        <li class="flex items-center gap-3 text-sm text-stone-300 md:text-base">
-                          <span class="h-1.5 w-1.5 rounded-full bg-[#dba480]" />
-                          {highlight}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  <a
-                    class="mt-8 inline-flex items-center gap-2 font-semibold text-[#e6b897] transition hover:gap-3"
-                    href="#contactos"
-                  >
-                    Falar sobre este serviço
-                    <Icon name="tabler:arrow-right" class="h-5 w-5" />
-                  </a>
-                </div>
-              </div>
-            </article>
-          ))
-        }
-      </div>
-
-      <div class="mt-5 flex items-center justify-between gap-5">
-        <div class="flex flex-wrap gap-2" role="tablist" aria-label="Escolher serviço">
-          {
-            services.map((service, index) => (
-              <button
-                type="button"
-                class="carousel-dot"
-                data-carousel-dot={index}
-                role="tab"
-                aria-controls={`service-slide-${index}`}
-                aria-label={`Mostrar ${service.title}`}
-                aria-selected={index === 0 ? 'true' : 'false'}
-              >
-                <span class="sr-only">{service.title}</span>
-              </button>
-            ))
-          }
-        </div>
-        <div class="flex items-center gap-3 sm:hidden">
-          <button class="carousel-arrow" type="button" data-carousel-prev aria-label="Serviço anterior">
-            <Icon name="tabler:arrow-left" class="h-5 w-5" />
-          </button>
-          <button
-            class="carousel-arrow"
-            type="button"
-            data-carousel-toggle
-            aria-label="Pausar rotação automática"
-            aria-pressed="false"
-          >
-            <Icon name="tabler:player-pause" class="h-5 w-5" data-carousel-pause-icon />
-            <Icon name="tabler:player-play" class="hidden h-5 w-5" data-carousel-play-icon />
-          </button>
-          <button class="carousel-arrow" type="button" data-carousel-next aria-label="Serviço seguinte">
-            <Icon name="tabler:arrow-right" class="h-5 w-5" />
-          </button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="bg-white">
-    <div class="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
-      <p class="eyebrow" data-reveal="up" data-reveal-repeat>Como trabalhamos</p>
-      <div class="mt-10 grid gap-8 lg:grid-cols-3">
-        {
-          steps.map(([title, description], index) => (
-            <article class="border-t border-stone-300 pt-6" data-reveal="up" style={`--reveal-delay: ${index * 100}ms`}>
-              <span class="text-sm text-[#ab5c36]">0{index + 1}</span>
-              <h3 class="mt-8 text-3xl font-medium tracking-tight text-stone-950">{title}</h3>
-              <p class="mt-4 max-w-sm leading-relaxed text-stone-600">{description}</p>
-            </article>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  <section id="contactos" class="scroll-mt-24 bg-[#d9c7ad]">
-    <div class="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
-      <p class="eyebrow" data-reveal="up">Contactos</p>
-      <div class="mt-8 grid gap-12 lg:grid-cols-[1.2fr_0.8fr] lg:items-end">
-        <div data-reveal="left" data-reveal-repeat>
-          <h2 class="text-[clamp(3rem,7vw,6.5rem)] font-medium leading-[0.95] tracking-[-0.055em] text-stone-950">
-            Tem um espaço<br /> para transformar?
+          <p class="eyebrow" style="margin-bottom:24px">04 / Antes de avançar</p><h2>
+            Boas decisões começam<br />com <em>boas perguntas.</em>
           </h2>
-          <a
-            class="mt-10 inline-flex items-center gap-3 text-lg font-semibold text-stone-950 underline decoration-stone-700/30 underline-offset-8 transition hover:decoration-stone-900"
-            href="mailto:sarapereira.arquitetura@hotmail.com"
-          >
-            Conte-me a sua ideia
-            <Icon name="tabler:arrow-up-right" class="h-5 w-5" />
-          </a>
-        </div>
-        <address class="not-italic lg:justify-self-end" data-reveal="right">
-          <ul class="space-y-5 text-lg text-stone-800">
-            <li><a class="contact-link" href="tel:+351913993165"><Icon name="tabler:phone" /> +351 913 993 165</a></li>
-            <li>
-              <a class="contact-link break-all" href="mailto:sarapereira.arquitetura@hotmail.com"
-                ><Icon name="tabler:mail" /> sarapereira.arquitetura@hotmail.com</a
-              >
-            </li>
-            <li><span class="contact-link"><Icon name="tabler:map-pin" /> Tomar, Portugal</span></li>
-            <li>
-              <a
-                class="contact-link"
-                href="https://www.instagram.com/sarapereira.arquitetura"
-                target="_blank"
-                rel="noopener noreferrer"><Icon name="tabler:brand-instagram" /> @sarapereira.arquitetura</a
-              >
-            </li>
-          </ul>
-        </address>
+        </div><a href="/guias" class="text-link">Todas as perguntas</a>
+      </div><div class="guide-list">
+        <a href="/guias/primeira-reuniao-arquiteta" class="guide-row"
+          ><span>PRIMEIROS PASSOS</span><h3>O que preparar para a primeira reunião com uma arquiteta?</h3></a
+        ><a href="/guias/preparar-remodelacao" class="guide-row"
+          ><span>REMODELAÇÃO</span><h3>Por onde começar a remodelação de uma casa?</h3></a
+        >
       </div>
     </div>
   </section>
+  <div id="contactos"><ContactCTA /></div>
 </Layout>
-
-<script>
-  const initializeServicesCarousel = () => {
-    const carousel = document.querySelector<HTMLElement>('[data-services-carousel]');
-    if (!carousel || carousel.dataset.ready === 'true') return;
-
-    carousel.dataset.ready = 'true';
-    const slides = Array.from(carousel.querySelectorAll<HTMLElement>('[data-service-slide]'));
-    const dots = Array.from(carousel.querySelectorAll<HTMLButtonElement>('[data-carousel-dot]'));
-    const triggers = Array.from(document.querySelectorAll<HTMLElement>('[data-service-trigger]'));
-    const previousButtons = Array.from(carousel.querySelectorAll<HTMLButtonElement>('[data-carousel-prev]'));
-    const nextButtons = Array.from(carousel.querySelectorAll<HTMLButtonElement>('[data-carousel-next]'));
-    const toggleButtons = Array.from(carousel.querySelectorAll<HTMLButtonElement>('[data-carousel-toggle]'));
-    const announcement = carousel.querySelector<HTMLElement>('[data-carousel-announcement]');
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    let currentIndex = 0;
-    let timer: number | undefined;
-    let manuallyPaused = reducedMotion.matches;
-    let pointerInside = false;
-    let focusWithin = false;
-
-    const stopTimer = () => {
-      window.clearInterval(timer);
-      timer = undefined;
-    };
-
-    const syncToggleButtons = () => {
-      toggleButtons.forEach((button) => {
-        button.setAttribute('aria-pressed', manuallyPaused ? 'true' : 'false');
-        button.setAttribute('aria-label', manuallyPaused ? 'Iniciar rotação automática' : 'Pausar rotação automática');
-        button.querySelector<HTMLElement>('[data-carousel-pause-icon]')?.classList.toggle('hidden', manuallyPaused);
-        button.querySelector<HTMLElement>('[data-carousel-play-icon]')?.classList.toggle('hidden', !manuallyPaused);
-      });
-    };
-
-    const startTimer = () => {
-      stopTimer();
-      if (manuallyPaused || reducedMotion.matches || pointerInside || focusWithin || document.hidden) return;
-      timer = window.setInterval(() => showSlide(currentIndex + 1, false), 6500);
-    };
-
-    const showSlide = (requestedIndex: number, restart = true) => {
-      currentIndex = (requestedIndex + slides.length) % slides.length;
-
-      slides.forEach((slide, index) => {
-        slide.hidden = index !== currentIndex;
-      });
-
-      dots.forEach((dot, index) => {
-        dot.setAttribute('aria-selected', index === currentIndex ? 'true' : 'false');
-      });
-
-      if (restart && announcement) {
-        const title = slides[currentIndex]?.querySelector('h3')?.textContent?.trim();
-        announcement.textContent = title ? `A mostrar ${title}` : '';
-      }
-
-      if (restart) startTimer();
-    };
-
-    triggers.forEach((trigger) => {
-      trigger.addEventListener('click', () => {
-        showSlide(Number(trigger.dataset.serviceTrigger));
-      });
-    });
-
-    dots.forEach((dot) => {
-      dot.addEventListener('click', () => showSlide(Number(dot.dataset.carouselDot)));
-    });
-
-    previousButtons.forEach((button) => button.addEventListener('click', () => showSlide(currentIndex - 1)));
-    nextButtons.forEach((button) => button.addEventListener('click', () => showSlide(currentIndex + 1)));
-    toggleButtons.forEach((button) => {
-      button.addEventListener('click', () => {
-        manuallyPaused = !manuallyPaused;
-        syncToggleButtons();
-        if (manuallyPaused) stopTimer();
-        else startTimer();
-      });
-    });
-
-    carousel.addEventListener('mouseenter', () => {
-      pointerInside = true;
-      stopTimer();
-    });
-    carousel.addEventListener('mouseleave', () => {
-      pointerInside = false;
-      startTimer();
-    });
-    carousel.addEventListener('focusin', () => {
-      focusWithin = true;
-      stopTimer();
-    });
-    carousel.addEventListener('focusout', (event) => {
-      const nextTarget = (event as FocusEvent).relatedTarget as Node | null;
-      if (nextTarget && carousel.contains(nextTarget)) return;
-      focusWithin = false;
-      startTimer();
-    });
-
-    reducedMotion.addEventListener('change', () => {
-      if (reducedMotion.matches) manuallyPaused = true;
-      syncToggleButtons();
-      startTimer();
-    });
-
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) stopTimer();
-      else startTimer();
-    });
-
-    syncToggleButtons();
-    startTimer();
-  };
-
-  initializeServicesCarousel();
-  document.addEventListener('astro:page-load', initializeServicesCarousel);
-
-  const initializePageMotion = () => {
-    const elements = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]:not([data-motion-ready])'));
-    if (!elements.length) return;
-
-    document.documentElement.classList.add('motion-ready');
-
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
-      elements.forEach((element) => {
-        element.dataset.motionReady = 'true';
-        element.classList.add('is-visible');
-      });
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const element = entry.target as HTMLElement;
-          const shouldRepeat = element.hasAttribute('data-reveal-repeat');
-
-          if (entry.isIntersecting) {
-            element.classList.add('is-visible');
-            if (!shouldRepeat) observer.unobserve(element);
-            return;
-          }
-
-          if (shouldRepeat) element.classList.remove('is-visible');
-        });
-      },
-      { threshold: 0.14, rootMargin: '-96px 0px -8% 0px' }
-    );
-
-    elements.forEach((element) => {
-      element.dataset.motionReady = 'true';
-      observer.observe(element);
-    });
-  };
-
-  initializePageMotion();
-  document.addEventListener('astro:page-load', initializePageMotion);
-
-  const initializeParallax = () => {
-    const root = document.documentElement;
-    if (root.dataset.parallaxReady === 'true') return;
-
-    root.dataset.parallaxReady = 'true';
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    let frame: number | undefined;
-
-    const update = () => {
-      frame = undefined;
-      if (reducedMotion.matches) return;
-
-      const viewportHeight = window.innerHeight;
-      const mobileMultiplier = window.innerWidth < 768 ? 0.45 : 1;
-
-      document.querySelectorAll<HTMLElement>('[data-parallax]').forEach((element) => {
-        if (element.closest('[hidden]')) return;
-
-        const bounds = element.getBoundingClientRect();
-        if (bounds.bottom < -120 || bounds.top > viewportHeight + 120) return;
-
-        const distanceFromCenter = bounds.top + bounds.height / 2 - viewportHeight / 2;
-        const progress = Math.max(-1, Math.min(1, distanceFromCenter / viewportHeight));
-        const strength = Number(element.dataset.parallaxStrength ?? 0.4);
-        element.style.setProperty('--parallax-y', `${progress * -44 * strength * mobileMultiplier}px`);
-      });
-    };
-
-    const requestUpdate = () => {
-      if (frame !== undefined) return;
-      frame = window.requestAnimationFrame(update);
-    };
-
-    window.addEventListener('scroll', requestUpdate, { passive: true });
-    window.addEventListener('resize', requestUpdate, { passive: true });
-    requestUpdate();
-  };
-
-  initializeParallax();
-  document.addEventListener('astro:page-load', initializeParallax);
-
-  const initializeSectionFeedback = () => {
-    document
-      .querySelectorAll<HTMLAnchorElement>(
-        'a[href="#sobre"]:not([data-section-ready]), a[href="#servicos"]:not([data-section-ready]), a[href="#contactos"]:not([data-section-ready])'
-      )
-      .forEach((link) => {
-        link.dataset.sectionReady = 'true';
-        link.addEventListener('click', (event) => {
-          const href = link.getAttribute('href') ?? '';
-          const target = document.querySelector<HTMLElement>(href);
-          if (!target) return;
-
-          event.preventDefault();
-
-          const moveToTarget = () => {
-            const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            const bounds = target.getBoundingClientRect();
-            const alreadyVisible = bounds.top < window.innerHeight * 0.45 && bounds.bottom > window.innerHeight * 0.55;
-
-            target.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
-
-            window.setTimeout(
-              () => {
-                target.classList.remove('is-section-highlighted');
-                void target.offsetWidth;
-                target.classList.add('is-section-highlighted');
-                window.setTimeout(() => target.classList.remove('is-section-highlighted'), 1100);
-              },
-              alreadyVisible || reducedMotion ? 0 : 520
-            );
-          };
-
-          window.history.replaceState(null, '', href);
-          const menuIsOpen = document.getElementById('header')?.classList.contains('expanded');
-          if (menuIsOpen) window.requestAnimationFrame(moveToTarget);
-          else moveToTarget();
-        });
-      });
-  };
-
-  initializeSectionFeedback();
-  document.addEventListener('astro:page-load', initializeSectionFeedback);
-</script>
-
-<style>
-  .hero-shell {
-    background:
-      linear-gradient(90deg, transparent 49.9%, rgb(120 113 108 / 0.12) 50%, transparent 50.1%),
-      linear-gradient(0deg, transparent 49.9%, rgb(120 113 108 / 0.1) 50%, transparent 50.1%), #f8f6f1;
-    background-size: 120px 120px;
-  }
-
-  .hero-layout {
-    transform: translateY(-0.75rem);
-  }
-
-  .hero-copy > :not(.hero-title) {
-    animation: hero-copy-in 800ms cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-
-  .hero-line {
-    display: block;
-    overflow: hidden;
-    padding: 0 0.08em 0.1em 0;
-    margin-bottom: -0.1em;
-  }
-
-  .hero-line > span {
-    display: block;
-    animation: hero-line-in 980ms cubic-bezier(0.16, 1, 0.3, 1) both;
-  }
-
-  @media (min-width: 1024px) {
-    .hero-line > span {
-      white-space: nowrap;
-    }
-  }
-
-  .hero-line:nth-child(1) > span {
-    animation-delay: 80ms;
-  }
-
-  .hero-line:nth-child(2) > span {
-    animation-delay: 180ms;
-  }
-
-  .hero-copy > :nth-child(2) {
-    animation-delay: 310ms;
-  }
-
-  .hero-copy > :nth-child(3) {
-    animation-delay: 430ms;
-  }
-
-  .hero-portrait-frame {
-    animation: hero-portrait-in 980ms cubic-bezier(0.16, 1, 0.3, 1) 230ms both;
-  }
-
-  .parallax-image {
-    transform: translate3d(0, var(--parallax-y, 0), 0) scale(1.075);
-    transition: transform 90ms linear;
-  }
-
-  :global(html.motion-ready) [data-reveal] {
-    opacity: 0;
-    transform: translateY(2rem);
-    transition:
-      opacity 720ms cubic-bezier(0.22, 1, 0.36, 1),
-      transform 720ms cubic-bezier(0.22, 1, 0.36, 1);
-    transition-delay: var(--reveal-delay, 0ms);
-    will-change: opacity, transform;
-  }
-
-  :global(html.motion-ready) [data-reveal='left'] {
-    transform: translateX(-2rem);
-  }
-
-  :global(html.motion-ready) [data-reveal='right'] {
-    transform: translateX(2rem);
-  }
-
-  :global(html.motion-ready) [data-reveal].is-visible {
-    opacity: 1;
-    transform: none;
-    will-change: auto;
-  }
-
-  .eyebrow {
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: #8c4c2f;
-  }
-
-  .eyebrow-light {
-    color: #dba480;
-  }
-
-  .service-card {
-    position: relative;
-    isolation: isolate;
-    overflow: hidden;
-    min-height: 18rem;
-    transition:
-      background-color 360ms ease,
-      box-shadow 360ms ease,
-      transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .service-card::before {
-    position: absolute;
-    z-index: -1;
-    inset: 0;
-    background: linear-gradient(145deg, rgb(255 255 255 / 0.7), rgb(219 164 128 / 0.12));
-    content: '';
-    transform: scaleY(0);
-    transform-origin: bottom;
-    transition: transform 440ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .service-card::after {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    height: 1px;
-    background: #ab5c36;
-    content: '';
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms);
-  }
-
-  .service-card.is-visible::after {
-    transform: scaleX(1);
-  }
-
-  .service-card:hover {
-    z-index: 1;
-    background: rgb(255 255 255 / 0.4);
-    box-shadow: 0 1.5rem 3rem rgb(31 40 37 / 0.1);
-    transform: translateY(-0.5rem);
-  }
-
-  .service-card:hover::before,
-  .service-card:focus-visible::before {
-    transform: scaleY(1);
-  }
-
-  .service-carousel-stage [data-service-slide] {
-    animation: service-slide-in 620ms cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-
-  .service-carousel-stage {
-    overflow: hidden;
-  }
-
-  .service-carousel-stage [data-service-slide] .service-media {
-    animation: service-media-in 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
-  }
-
-  .service-carousel-stage [data-service-slide] > div > div:last-child {
-    animation: service-content-in 700ms cubic-bezier(0.22, 1, 0.36, 1) 90ms both;
-  }
-
-  .service-carousel-stage [data-service-slide] li {
-    animation: service-list-in 560ms cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-
-  .service-carousel-stage [data-service-slide] li:nth-child(1) {
-    animation-delay: 240ms;
-  }
-
-  .service-carousel-stage [data-service-slide] li:nth-child(2) {
-    animation-delay: 310ms;
-  }
-
-  .service-carousel-stage [data-service-slide] li:nth-child(3) {
-    animation-delay: 380ms;
-  }
-
-  .carousel-arrow {
-    display: inline-flex;
-    height: 2.75rem;
-    width: 2.75rem;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid rgb(255 255 255 / 0.22);
-    border-radius: 9999px;
-    color: #fff;
-    transition:
-      background-color 160ms ease,
-      color 160ms ease;
-  }
-
-  .carousel-arrow:hover,
-  .carousel-arrow:focus-visible {
-    background: #dba480;
-    color: #1f2825;
-    outline: none;
-  }
-
-  .carousel-dot {
-    height: 0.25rem;
-    width: 2.5rem;
-    border-radius: 9999px;
-    background: rgb(255 255 255 / 0.2);
-    transition:
-      width 200ms ease,
-      background-color 200ms ease;
-  }
-
-  .carousel-dot[aria-selected='true'] {
-    width: 4rem;
-    background: #dba480;
-  }
-
-  @keyframes service-slide-in {
-    from {
-      opacity: 0;
-      transform: translateX(1rem);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes hero-copy-in {
-    from {
-      opacity: 0;
-      transform: translateY(1.5rem);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes hero-line-in {
-    from {
-      opacity: 0;
-      transform: translateY(112%) rotate(1.5deg);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0) rotate(0);
-    }
-  }
-
-  @keyframes hero-portrait-in {
-    from {
-      opacity: 0;
-      clip-path: inset(100% 0 0 0);
-      transform: translateY(2.5rem) scale(0.985);
-    }
-    to {
-      opacity: 1;
-      clip-path: inset(0);
-      transform: translateY(0) scale(1);
-    }
-  }
-
-  @keyframes service-media-in {
-    from {
-      clip-path: inset(0 100% 0 0);
-    }
-    to {
-      clip-path: inset(0);
-    }
-  }
-
-  @keyframes service-content-in {
-    from {
-      opacity: 0;
-      transform: translateX(1.25rem);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes service-list-in {
-    from {
-      opacity: 0;
-      transform: translateY(0.65rem);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  :global(#header nav > ul > li > a) {
-    position: relative;
-  }
-
-  :global(#header nav > ul > li > a)::after {
-    position: absolute;
-    right: 1rem;
-    bottom: 0.55rem;
-    left: 1rem;
-    height: 1px;
-    background: currentColor;
-    content: '';
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  :global(#header nav > ul > li > a:hover)::after,
-  :global(#header nav > ul > li > a:focus-visible)::after {
-    transform: scaleX(1);
-    transform-origin: left;
-  }
-
-  :global(.hero-shell .btn) {
-    transition:
-      background-color 220ms ease,
-      border-color 220ms ease,
-      box-shadow 300ms ease,
-      color 220ms ease,
-      transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  :global(.hero-shell .btn:hover) {
-    box-shadow: 0 0.75rem 1.75rem rgb(31 40 37 / 0.12);
-    transform: translateY(-0.2rem);
-  }
-
-  .contact-link {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  .contact-link :global(svg) {
-    width: 1.25rem;
-    height: 1.25rem;
-    flex: none;
-  }
-
-  a.contact-link {
-    transition: opacity 160ms ease;
-  }
-
-  a.contact-link:hover {
-    opacity: 0.62;
-  }
-
-  #sobre.is-section-highlighted {
-    animation: about-section-highlight 1000ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  #servicos.is-section-highlighted {
-    animation: services-section-highlight 1000ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  #contactos.is-section-highlighted {
-    animation: contact-section-highlight 1000ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .is-section-highlighted h2,
-  .is-section-highlighted .eyebrow {
-    animation: contact-title-highlight 820ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  #servicos.is-section-highlighted .service-card {
-    animation: section-content-highlight 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
-  }
-
-  #servicos.is-section-highlighted .service-card:nth-child(2),
-  #servicos.is-section-highlighted .service-card:nth-child(5) {
-    animation-delay: 60ms;
-  }
-
-  #servicos.is-section-highlighted .service-card:nth-child(3),
-  #servicos.is-section-highlighted .service-card:nth-child(6) {
-    animation-delay: 120ms;
-  }
-
-  #contactos.is-section-highlighted .contact-link {
-    animation: contact-link-highlight 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
-  }
-
-  #contactos.is-section-highlighted li:nth-child(2) .contact-link {
-    animation-delay: 70ms;
-  }
-
-  #contactos.is-section-highlighted li:nth-child(3) .contact-link {
-    animation-delay: 140ms;
-  }
-
-  #contactos.is-section-highlighted li:nth-child(4) .contact-link {
-    animation-delay: 210ms;
-  }
-
-  @keyframes about-section-highlight {
-    0%,
-    100% {
-      background-color: #1f2825;
-    }
-    38% {
-      background-color: #293732;
-    }
-  }
-
-  @keyframes services-section-highlight {
-    0%,
-    100% {
-      background-color: #f3f0e9;
-    }
-    38% {
-      background-color: #fffaf1;
-    }
-  }
-
-  @keyframes contact-section-highlight {
-    0%,
-    100% {
-      background-color: #d9c7ad;
-    }
-    38% {
-      background-color: #e6d5bd;
-    }
-  }
-
-  @keyframes contact-title-highlight {
-    from {
-      opacity: 0.55;
-      transform: translateY(0.8rem);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes contact-link-highlight {
-    from {
-      opacity: 0.35;
-      transform: translateX(-0.75rem);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes section-content-highlight {
-    from {
-      opacity: 0.55;
-      transform: translateY(0.65rem);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @media (max-width: 767px) {
-    .hero-layout {
-      transform: none;
-    }
-
-    .hero-copy > :not(.hero-title),
-    .hero-line > span {
-      animation-duration: 650ms;
-    }
-
-    .hero-portrait-frame {
-      animation-duration: 800ms;
-      animation-delay: 220ms;
-    }
-
-    :global(html.motion-ready) [data-reveal],
-    :global(html.motion-ready) [data-reveal='left'],
-    :global(html.motion-ready) [data-reveal='right'] {
-      transform: translateY(1.25rem);
-      transition-duration: 620ms;
-    }
-
-    .service-card {
-      min-height: auto;
-    }
-
-    .service-carousel-stage [data-service-slide] > div > div:last-child {
-      animation-name: service-content-in-mobile;
-    }
-
-    .carousel-arrow {
-      height: 3rem;
-      width: 3rem;
-    }
-
-    .carousel-dot {
-      width: 1.75rem;
-    }
-
-    .carousel-dot[aria-selected='true'] {
-      width: 3rem;
-    }
-  }
-
-  @keyframes service-content-in-mobile {
-    from {
-      opacity: 0;
-      transform: translateY(1rem);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @media (hover: none) {
-    .service-card:hover {
-      box-shadow: none;
-      transform: none;
-    }
-
-    .service-card:active {
-      background: rgb(255 255 255 / 0.5);
-      transform: scale(0.99);
-    }
-
-    .service-card:active::before {
-      transform: scaleY(1);
-    }
-
-    :global(.hero-shell .btn:hover) {
-      box-shadow: none;
-      transform: none;
-    }
-
-    :global(.hero-shell .btn:active) {
-      transform: scale(0.98);
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .hero-copy > *,
-    .hero-line > span,
-    .hero-portrait-frame,
-    .service-carousel-stage [data-service-slide],
-    .service-carousel-stage [data-service-slide] .service-media,
-    .service-carousel-stage [data-service-slide] > div > div:last-child,
-    .service-carousel-stage [data-service-slide] li {
-      opacity: 1 !important;
-      animation: none !important;
-      transform: none !important;
-    }
-
-    .parallax-image {
-      transform: scale(1.075);
-      transition: none;
-    }
-
-    :global(html.motion-ready) [data-reveal] {
-      opacity: 1;
-      transform: none;
-      transition: none;
-    }
-
-    .service-card,
-    .service-card::before,
-    .service-card::after,
-    :global(#header nav > ul > li > a)::after,
-    :global(.hero-shell .btn) {
-      transition: none;
-    }
-
-    .service-card:hover,
-    :global(.hero-shell .btn:hover) {
-      transform: none;
-    }
-
-    .is-section-highlighted,
-    .is-section-highlighted h2,
-    .is-section-highlighted .eyebrow,
-    #servicos.is-section-highlighted .service-card,
-    #contactos.is-section-highlighted .contact-link {
-      animation: none;
-    }
-  }
-</style>

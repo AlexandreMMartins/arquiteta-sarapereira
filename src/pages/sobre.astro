@@ -1,0 +1,66 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '~/layouts/StudioLayout.astro';
+import ContactCTA from '~/components/site/ContactCTA.astro';
+import portrait from '~/assets/images/sobre-v2.png';
+---
+
+<Layout
+  title="Sara Pereira, arquiteta - Sobre o atelier"
+  description="Conheça Sara Pereira: uma abordagem próxima à arquitetura, com respeito pelo existente. Sediada em Tomar, com projetos noutras localidades."
+>
+  <section class="intro wrap">
+    <p class="eyebrow">Sara Pereira / Arquiteta</p><h1>Uma forma de olhar.<br />Uma forma de <em>cuidar.</em></h1>
+  </section>
+  <section class="section wrap split" style="padding-top:20px">
+    <Image
+      src={portrait}
+      alt="Sara Pereira, arquiteta"
+      widths={[420, 640, 900]}
+      sizes="(max-width:720px) 88vw, 42vw"
+      class="portrait"
+      format="webp"
+    /><div>
+      <h2>Transformar casas.<br /><em>Desde sempre.</em></h2><p>
+        A vontade de criar e transformar casas começou nas brincadeiras de infância, entre cabanas e construções de
+        Lego. Tornou-se um caminho de formação e uma maneira de pensar os espaços.
+      </p><p>
+        A formação em arquitetura e a experiência de Erasmus em Veneza reforçaram uma convicção: antes de intervir, é
+        preciso compreender e valorizar aquilo que já existe.
+      </p><p>
+        Em cada projeto, procuro equilibrar essa memória com as necessidades de quem o vai habitar. Inovar, melhorar e
+        criar espaços acolhedores, funcionais e ligados ao seu contexto.
+      </p>
+    </div>
+  </section>
+  <section class="section dark">
+    <div class="wrap split">
+      <h2>De Tomar,<br />para outros <em>lugares.</em></h2><div>
+        <p style="margin-top:0">
+          Tomar é a base do atelier, não o limite do trabalho. Cada projeto traz um lugar diferente, uma história e uma
+          forma própria de habitar.
+        </p><p>
+          A localização, o âmbito e as necessidades de acompanhamento são conversados desde o início, para definir uma
+          proposta adequada.
+        </p><div class="actions"><a class="button button-light" href="/contactos">Vamos conversar</a></div>
+      </div>
+    </div>
+  </section>
+  <section class="section wrap">
+    <p class="eyebrow" style="margin-bottom:25px">A abordagem</p><h2>
+      Ouvir. Compreender.<br /><em>Dar forma.</em>
+    </h2><div class="steps" style="grid-template-columns:repeat(auto-fit,minmax(210px,1fr))">
+      <article class="step">
+        <h3>Proximidade</h3><p>
+          O projeto começa numa conversa sobre as pessoas, as necessidades e os recursos disponíveis.
+        </p>
+      </article><article class="step">
+        <h3>Respeito pelo lugar</h3><p>A luz, os materiais e as características do existente orientam as decisões.</p>
+      </article><article class="step">
+        <h3>Clareza no processo</h3><p>
+          Fases, entregáveis e responsabilidades definidos para saber o que esperar do trabalho.
+        </p>
+      </article>
+    </div>
+  </section><ContactCTA />
+</Layout>

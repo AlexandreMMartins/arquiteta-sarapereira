@@ -1,24 +1,13 @@
 ---
-import Layout from '~/layouts/Layout.astro';
-import { getHomePermalink } from '~/utils/permalinks';
-
-const title = `Erro 404`;
+import Layout from '~/layouts/StudioLayout.astro';
 ---
 
-<Layout metadata={{ title }}>
-  <section class="flex items-center h-full p-16">
-    <div class="container flex flex-col items-center justify-center px-5 mx-auto my-8">
-      <div class="max-w-md text-center">
-        <h1 class="mb-8 font-bold text-9xl">
-          <span class="sr-only">Erro</span>
-          <span class="text-primary">404</span>
-        </h1>
-        <p class="text-3xl font-semibold md:text-3xl">Não foi possível encontrar esta página.</p>
-        <p class="mt-4 mb-8 text-lg text-muted dark:text-slate-400">
-          Pode regressar à página inicial e continuar a explorar o nosso trabalho.
-        </p>
-        <a rel="noopener noreferrer" href={getHomePermalink()} class="btn ml-4">Voltar à página inicial</a>
-      </div>
+<Layout title="Página não encontrada - Sara Pereira" description="Regresse ao site de Sara Pereira Arquitetura."
+  ><section class="intro wrap" style="min-height:65vh">
+    <p class="eyebrow">Erro 404</p><h1>Este caminho<br />não leva a uma <em>página.</em></h1><p>
+      Pode regressar ao início ou falar connosco sobre o seu projeto.
+    </p><div class="actions">
+      <a class="button" href="/">Voltar ao início</a><a class="text-link" href="/contactos">Contactar a Sara</a>
     </div>
-  </section>
-</Layout>
+  </section></Layout
+>

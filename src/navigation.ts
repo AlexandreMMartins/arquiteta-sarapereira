@@ -24,5 +24,5 @@ export const footerData = {
       href: 'https://www.instagram.com/sarapereira.arquitetura',
     },
   ],
-  footNote: `© ${new Date().getFullYear()} Sara Pereira Arquitetura · Tomar`,
+  footNote: `© ${new Date().getFullYear()} Sara Pereira · Tomar`,
 };

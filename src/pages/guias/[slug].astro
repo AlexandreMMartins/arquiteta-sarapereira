@@ -1,0 +1,50 @@
+---
+import Layout from '~/layouts/StudioLayout.astro';
+import ContactCTA from '~/components/site/ContactCTA.astro';
+import { guides } from '~/data/guides';
+export function getStaticPaths() {
+  return guides.map((guide) => ({ params: { slug: guide.slug }, props: { guide } }));
+}
+const { guide } = Astro.props;
+---
+
+<Layout title={`${guide.title} - Sara Pereira`} description={guide.intro}
+  ><section class="intro wrap">
+    <nav class="breadcrumb" aria-label="Localização na página">
+      <a href="/">Início</a><span>/</span><a href="/guias">Perguntas</a><span>/</span><span>{guide.category}</span>
+    </nav><p class="eyebrow">{guide.category}</p><h1 style="max-width:1150px;font-size:clamp(2.6rem,5.3vw,5.2rem)">
+      {guide.title}
+    </h1><p>{guide.intro}</p>
+  </section><section class="section wrap content-grid" style="padding-top:15px">
+    <article class="prose">
+      {
+        guide.sections.map((section) => (
+          <section>
+            <h2>{section.title}</h2>
+            {section.paragraphs.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
+            {'items' in section && section.items && (
+              <ul>
+                {section.items.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            )}
+          </section>
+        ))
+      }<p style="margin-top:45px;font-size:.9rem">
+        Esta resposta é uma introdução à preparação de um projeto. A avaliação técnica e os próximos passos dependem do
+        imóvel e da intervenção pretendida.
+      </p><a href="/guias" class="text-link" style="margin-top:25px">Voltar às perguntas</a>
+    </article><aside class="aside-box">
+      <p class="eyebrow" style="margin-bottom:20px">Da dúvida ao projeto</p><h3>Vamos olhar para o seu caso?</h3><p>
+        Indique o que pretende fazer e onde se encontra o imóvel ou terreno.
+      </p><a class="button" href={`/contactos?servico=${guide.service}`}>Falar sobre a minha ideia</a><a
+        class="text-link"
+        href={`/servicos/${guide.service}`}
+        style="margin-top:20px">Conhecer o serviço relacionado</a
+      >
+    </aside>
+  </section><ContactCTA /></Layout
+>

@@ -1,0 +1,109 @@
+---
+import '@fontsource-variable/inter';
+import '~/styles/studio.css';
+import Metadata from '~/components/common/Metadata.astro';
+import Favicons from '~/components/Favicons.astro';
+import SiteVerification from '~/components/common/SiteVerification.astro';
+import { Icon } from 'astro-icon/components';
+import ContactChannels from '~/components/site/ContactChannels.astro';
+interface Props {
+  title: string;
+  description: string;
+}
+const { title, description } = Astro.props;
+const path = Astro.url.pathname;
+const links = [
+  ['/servicos', 'Serviços'],
+  ['/abordagem', 'Abordagem'],
+  ['/sobre', 'Sobre'],
+  ['/guias', 'Perguntas'],
+];
+const business = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: 'Sara Pereira - Arquitetura',
+  url: 'https://www.sarapereira-arquitetura.pt',
+  telephone: '+351913993165',
+  email: 'sarapereira.arquitetura@hotmail.com',
+  address: { '@type': 'PostalAddress', addressLocality: 'Tomar', addressCountry: 'PT' },
+  sameAs: ['https://www.instagram.com/sarapereira.arquitetura'],
+};
+---
+
+<!doctype html>
+<html lang="pt-PT">
+  <head>
+    <meta charset="UTF-8" /><meta name="viewport" content="width=device-width" />
+    <meta name="theme-color" content="#ffffff" />
+    <Metadata title={title} description={description} ignoreTitleTemplate={true} />
+    <Favicons /><SiteVerification />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(business).replace(/</g, '\\u003c')} />
+  </head>
+  <body>
+    <a href="#conteudo" class="skip-link">Saltar para o conteúdo</a>
+    <header class="site-header">
+      <a href="/" class="wordmark" aria-label="Sara Pereira Arquitetura - Início">Sara Pereira Arquitetura</a>
+      <nav class="desktop-nav" aria-label="Navegação principal">
+        {
+          links.map(([href, label]) => (
+            <a href={href} aria-current={path.startsWith(href) ? 'page' : undefined}>
+              {label}
+            </a>
+          ))
+        }
+      </nav>
+      <a href="/contactos" class="header-contact" aria-current={path === '/contactos' ? 'page' : undefined}
+        ><Icon name="tabler:message-circle" aria-hidden="true" />Contactos</a
+      >
+      <details class="mobile-menu">
+        <summary>Menu</summary><nav aria-label="Navegação móvel">
+          {
+            links.map(([href, label]) => (
+              <a href={href} aria-current={path.startsWith(href) ? 'page' : undefined}>
+                {label}
+              </a>
+            ))
+          }<a href="/contactos">Contactos</a>
+        </nav>
+      </details>
+    </header>
+    <main id="conteudo" tabindex="-1"><slot /></main>
+    <footer class="site-footer">
+      <div class="footer-top">
+        <a href="/" class="wordmark">Sara Pereira<span>ARQUITETURA</span></a><p>
+          A partir de Tomar.<br />Onde o seu projeto nos levar.
+        </p>
+      </div>
+      {path.replace(/\/$/, '') !== '/contactos' && <ContactChannels compact />}
+      <div class="footer-bottom">
+        <span>© {new Date().getFullYear()} Sara Pereira</span><a href="/privacidade">Privacidade</a>
+      </div>
+    </footer>
+    <script>
+      import { initScrollReveal } from '~/utils/scrollReveal';
+
+      const disposeScrollReveal = initScrollReveal();
+      document.addEventListener('astro:before-swap', () => disposeScrollReveal?.(), { once: true });
+
+      document.querySelectorAll<HTMLAnchorElement>('[data-contact]').forEach((link) =>
+        link.addEventListener('click', () => {
+          window.dispatchEvent(
+            new CustomEvent('site:contact', {
+              detail: { action: link.dataset.contact, page: window.location.pathname },
+            })
+          );
+        })
+      );
+      const menu = document.querySelector<HTMLDetailsElement>('.mobile-menu');
+      document.addEventListener('click', (event) => {
+        if (menu?.open && event.target instanceof Node && !menu.contains(event.target)) menu.open = false;
+      });
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && menu?.open) {
+          menu.open = false;
+          menu.querySelector('summary')?.focus();
+        }
+      });
+    </script>
+  </body>
+</html>

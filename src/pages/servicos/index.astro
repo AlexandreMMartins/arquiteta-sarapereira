@@ -1,0 +1,47 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '~/layouts/StudioLayout.astro';
+import ContactCTA from '~/components/site/ContactCTA.astro';
+import { services } from '~/data/services';
+const images = import.meta.glob<{ default: import('astro').ImageMetadata }>('/src/assets/images/services/*.png', {
+  eager: true,
+});
+---
+
+<Layout
+  title="Serviços de arquitetura, remodelação e consultoria - Sara Pereira"
+  description="Projetos de arquitetura, reabilitação, levantamentos, execução, interiores e consultoria. Sediada em Tomar, com atuação noutras localidades."
+>
+  <section class="intro wrap">
+    <p class="eyebrow">Serviços</p><h1>Do primeiro olhar<br />ao último <em>detalhe.</em></h1><p>
+      Um terreno, uma casa para transformar ou uma dúvida antes de avançar. Encontramos o ponto de partida para o seu
+      projeto, em Tomar ou noutra localidade.
+    </p>
+  </section>
+  <section class="section" style="padding-top:20px">
+    <div class="wrap service-grid">
+      {
+        services.map((service, index) => (
+          <a class="service-card" href={`/servicos/${service.slug}`}>
+            <>
+              <span class="number">
+                0{index + 1} / {service.category}
+              </span>
+              <Image
+                src={images[`/src/assets/images/services/${service.image}.png`].default}
+                alt={`Imagem ilustrativa de ${service.name.toLowerCase()}`}
+                widths={[420, 640, 900]}
+                sizes="(max-width:720px) 88vw, 30vw"
+                loading="lazy"
+                format="webp"
+              />
+              <h3>{service.name}</h3>
+              <p>{service.intro}</p>
+              <span class="text-link">Explorar serviço</span>
+            </>
+          </a>
+        ))
+      }
+    </div><p class="wrap image-note" style="margin-top:30px">Imagens ilustrativas dos serviços.</p>
+  </section><ContactCTA />
+</Layout>

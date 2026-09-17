@@ -1,0 +1,33 @@
+---
+import Layout from '~/layouts/StudioLayout.astro';
+import ContactCTA from '~/components/site/ContactCTA.astro';
+import { guides } from '~/data/guides';
+---
+
+<Layout
+  title="Perguntas para começar o seu projeto - Sara Pereira Arquitetura"
+  description="Prepare a primeira reunião, organize uma remodelação e reúna informação sobre um terreno. Perguntas e respostas para começar a conversar sobre arquitetura."
+  ><section class="intro wrap">
+    <p class="eyebrow">Perguntas / Antes de avançar</p><h1>Espaço para<br /><em>boas perguntas.</em></h1><p>
+      Informação para preparar decisões, organizar ideias e começar a conversar sobre o seu projeto.
+    </p>
+  </section><section class="section wrap" style="padding-top:10px">
+    <div class="guide-list">
+      {
+        guides.map((guide) => (
+          <a href={`/guias/${guide.slug}`} class="guide-row">
+            <>
+              <span>{guide.category}</span>
+              <div>
+                <>
+                  <h3>{guide.title}</h3>
+                  <p style="margin-top:16px;color:var(--muted)">{guide.intro}</p>
+                </>
+              </div>
+            </>
+          </a>
+        ))
+      }
+    </div>
+  </section><ContactCTA /></Layout
+>

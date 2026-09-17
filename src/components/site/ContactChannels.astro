@@ -1,0 +1,31 @@
+---
+import { Icon } from 'astro-icon/components';
+import { contactChannels } from '~/data/contact';
+interface Props {
+  compact?: boolean;
+}
+const { compact = false } = Astro.props;
+---
+
+<div class:list={['contact-channels', { 'contact-channels-compact': compact }]}>
+  {
+    contactChannels.map((channel) => (
+      <a
+        class:list={['channel-link', { 'channel-whatsapp': channel.type === 'whatsapp' }]}
+        href={channel.href}
+        target={channel.external ? '_blank' : undefined}
+        rel={channel.external ? 'noopener noreferrer' : undefined}
+        data-contact={channel.type}
+        aria-label={
+          channel.type === 'whatsapp' ? 'Abrir conversa no WhatsApp com Sara Pereira, +351 913 993 165' : undefined
+        }
+      >
+        <Icon name={channel.icon} aria-hidden="true" />
+        <span class="channel-copy">
+          <strong>{channel.label}</strong>
+          {!compact && <span>{channel.detail}</span>}
+        </span>
+      </a>
+    ))
+  }
+</div>

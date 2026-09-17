@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1536 1024">
+  <defs>
+    <pattern id="paving" width="56" height="56" patternUnits="userSpaceOnUse"><rect width="56" height="56" fill="#eeeae1"/><path d="M56 0H0V56" fill="none" stroke="#d4cfc3" stroke-width="1"/></pattern>
+    <pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0V8" stroke="#999e93" stroke-width="1"/></pattern>
+  </defs>
+  <rect width="1536" height="1024" fill="#f7f6f2"/>
+  <g font-family="Arial, sans-serif" fill="#454e44">
+    <text x="360" y="114" font-size="19" letter-spacing="4">ESTUDO DO EXTERIOR</text>
+    <text x="360" y="152" font-size="30">Moradia com pátio</text>
+    <text x="1170" y="150" text-anchor="end" font-size="18" fill="#767c71">01 / TRAÇADO</text>
+  </g>
+  <path d="M565 425H1170V850H565Z" fill="url(#paving)" stroke="#b6bbaf" stroke-width="2"/>
+  <path d="M360 220H1170V425H565V850H360Z" fill="#f1f0e9" stroke="#384238" stroke-width="16" stroke-linejoin="miter"/>
+  <path d="M360 220H1170V425H565V850H360Z" fill="none" stroke="url(#hatch)" stroke-width="12"/>
+  <!-- Only the openings visible in the final view are represented. -->
+  <path d="M387 850H402 M565 807V655 M565 493V470 M574 425H1097" stroke="#f7f6f2" stroke-width="20"/>
+  <path d="M387 846H402 M387 854H402 M561 493V470 M569 493V470 M574 421H1097 M574 429H1097" stroke="#657269" stroke-width="2" fill="none"/>
+  <path d="M647 418V432 M732 418V432 M817 418V432 M902 418V432 M987 418V432" stroke="#657269" stroke-width="3"/>
+  <path d="M560 655V807H570V655Z" fill="#bca783" stroke="#6b604d" stroke-width="2"/>
+  <!-- Entrance threshold and the paved courtyard shown in the final view. -->
+  <path d="M576 648H604V814H576 M604 648H621V814H604" fill="none" stroke="#c0b8a7" stroke-width="2"/>
+  <rect x="965" y="624" width="97" height="97" fill="#d7ddcd" stroke="#adb6a1" stroke-width="2"/>
+  <g fill="none" stroke="#909e83" stroke-width="1.5">
+    <circle cx="1014" cy="670" r="49"/><circle cx="1014" cy="670" r="34" stroke-dasharray="3 5"/>
+    <path d="M1014 630V710 M974 670H1054 M988 644L1040 696 M988 696L1040 644"/>
+  </g>
+  <g font-family="Arial, sans-serif" fill="#586151" text-anchor="middle">
+    <text x="856" y="577" font-size="23" letter-spacing="3">PÁTIO</text>
+    <text x="856" y="606" font-size="16" fill="#858a7c">Pavimento em pedra</text>
+    <text x="1014" y="757" font-size="16">Oliveira</text>
+    <text x="835" y="387" font-size="16">Envidraçado</text>
+    <text x="460" y="733" font-size="16">Entrada</text>
+  </g>
+  <g stroke="#a3aa9b" stroke-width="1" fill="none">
+    <path d="M460 742H549 M335 220H305 M335 850H305 M319 220V850 M360 875V903 M1170 875V903 M360 891H1170"/>
+    <path d="M313 226L325 214 M313 856L325 844 M354 897L366 885 M1164 897L1176 885"/>
+  </g>
+  <path d="M360 943H1170" stroke="#b9bdb2"/>
+  <g font-family="Arial, sans-serif" font-size="16" fill="#7c8475">
+    <text x="360" y="974">Perímetro e aberturas visíveis · Sem escala</text>
+    <text x="1170" y="974" text-anchor="end">Estudo ilustrativo</text>
+  </g>
+</svg>

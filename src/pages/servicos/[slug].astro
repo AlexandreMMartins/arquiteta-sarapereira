@@ -1,0 +1,77 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '~/layouts/StudioLayout.astro';
+import ContactCTA from '~/components/site/ContactCTA.astro';
+import { services } from '~/data/services';
+export function getStaticPaths() {
+  return services.map((service) => ({ params: { slug: service.slug }, props: { service } }));
+}
+const { service } = Astro.props;
+const images = import.meta.glob<{ default: import('astro').ImageMetadata }>('/src/assets/images/services/*.png', {
+  eager: true,
+});
+const image = images[`/src/assets/images/services/${service.image}.png`].default;
+---
+
+<Layout
+  title={`${service.name} - Sara Pereira Arquitetura`}
+  description={`${service.intro} Sediada em Tomar, com atuação noutras localidades.`}
+>
+  <section class="intro wrap">
+    <nav class="breadcrumb" aria-label="Localização na página">
+      <a href="/">Início</a><span>/</span><a href="/servicos">Serviços</a><span>/</span><span>{service.name}</span>
+    </nav><p class="eyebrow">{service.name}</p><h1>{service.title}</h1><p>{service.intro}</p><div class="actions">
+      <a class="button" href={`/contactos?servico=${service.slug}`}>Falar sobre este serviço</a>
+    </div>
+  </section>
+  <figure class="wide-banner wrap">
+    <Image
+      src={image}
+      alt={`Ambiente ilustrativo de ${service.name.toLowerCase()}`}
+      widths={[640, 960, 1440]}
+      sizes="92vw"
+      loading="eager"
+      format="webp"
+    /><figcaption class="image-note">Imagem ilustrativa do serviço.</figcaption>
+  </figure>
+  <section class="section wrap content-grid">
+    <div class="prose">
+      <h2 style="margin-top:0">Para quem é este serviço?</h2><p>{service.forWho}</p><h2>Como abordamos o projeto</h2><p>
+        {service.body}
+      </p><h2>O que podemos desenvolver</h2><ul>{service.includes.map((item) => <li>{item}</li>)}</ul><p>
+        Os elementos a entregar e as fases de trabalho são definidos numa proposta ajustada ao seu caso.
+      </p><h2>O que trazer para a primeira conversa</h2><ul>{service.prepare.map((item) => <li>{item}</li>)}</ul><p>
+        Não precisa de ter tudo reunido para entrar em contacto. Começamos pela informação que já tem.
+      </p>
+    </div><aside class="aside-box">
+      <p class="eyebrow" style="margin-bottom:20px">O seu ponto de partida</p><h3>Onde se encontra o seu projeto?</h3><p
+      >
+        O atelier está sediado em Tomar e desenvolve trabalho noutras localidades. Indique a localização para
+        conversarmos sobre o acompanhamento adequado.
+      </p><a href={`/contactos?servico=${service.slug}`} class="button">Conte-me a sua ideia</a><a
+        class="text-link"
+        style="margin-top:20px"
+        href="/guias/primeira-reuniao-arquiteta">Preparar a primeira reunião</a
+      >
+    </aside>
+  </section>
+  <section class="section wrap" style="padding-top:0">
+    <h2>Perguntas <em>frequentes.</em></h2><div class="faq">
+      {
+        service.faq.map(([q, a]) => (
+          <details>
+            <>
+              <summary>{q}</summary>
+              <p>{a}</p>
+            </>
+          </details>
+        ))
+      }<details>
+        <summary>Trabalha apenas em Tomar?</summary><p>
+          Não. Tomar é a base do atelier, mas os projetos podem situar-se noutras localidades. A localização e as
+          necessidades de acompanhamento são consideradas na proposta.
+        </p>
+      </details>
+    </div><a href="/servicos" class="text-link" style="margin-top:35px">Ver os restantes serviços</a>
+  </section><ContactCTA />
+</Layout>

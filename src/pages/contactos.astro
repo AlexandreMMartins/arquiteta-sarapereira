@@ -1,0 +1,182 @@
+---
+import Layout from '~/layouts/StudioLayout.astro';
+import { services } from '~/data/services';
+import ContactChannels from '~/components/site/ContactChannels.astro';
+const endpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT || '';
+---
+
+<Layout
+  title="Contactar Sara Pereira - Vamos falar sobre o seu projeto"
+  description="Conte a sua ideia à arquiteta Sara Pereira. Arquitetura, remodelação e consultoria a partir de Tomar, com atuação noutras localidades."
+>
+  <section class="intro wrap">
+    <p class="eyebrow">Vamos conversar</p><h1>O seu projeto começa<br />com uma <em>conversa.</em></h1><p>
+      Uma casa, um terreno ou uma ideia ainda por definir. Conte-me o que tem em mente e onde gostaria de o concretizar.
+    </p>
+  </section>
+  <section class="wrap contact-grid">
+    <aside class="contact-details">
+      <h2>Escolha como conversar.</h2>
+      <p>O atelier está sediado em Tomar, com projetos noutras localidades.</p>
+      <ContactChannels />
+      <p style="margin-top:30px">Conte-me onde se encontra o espaço e o que pretende fazer. Começamos a partir daí.</p>
+    </aside>
+    <div>
+      <form class="contact-form" data-endpoint={endpoint}>
+        <div class="field-row">
+          <div class="field">
+            <label for="name">Nome</label><input id="name" name="name" autocomplete="name" required maxlength="120" />
+          </div><div class="field">
+            <label for="email">Email</label><input
+              id="email"
+              name="email"
+              type="email"
+              autocomplete="email"
+              required
+              maxlength="254"
+            />
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="phone">Telefone <span class="form-note">(opcional)</span></label><input
+              id="phone"
+              name="phone"
+              type="tel"
+              autocomplete="tel"
+              maxlength="40"
+            />
+          </div><div class="field">
+            <label for="location">Localidade do projeto</label><input
+              id="location"
+              name="location"
+              autocomplete="address-level2"
+              required
+              maxlength="180"
+              placeholder="Onde se encontra o imóvel ou terreno?"
+            />
+          </div>
+        </div>
+        <div class="field">
+          <label for="service">O que pretende fazer?</label><select id="service" name="service"
+            ><option value="">Ainda não sei / Quero conversar</option>{
+              services.map((service) => <option value={service.slug}>{service.name}</option>)
+            }</select
+          >
+        </div>
+        <div class="field">
+          <label for="message">Conte-me a sua ideia</label><textarea
+            id="message"
+            name="message"
+            required
+            minlength="10"
+            maxlength="5000"
+            placeholder="O que gostaria de construir, transformar ou esclarecer?"></textarea>
+        </div>
+        <div class="trap" aria-hidden="true">
+          <label for="website">Website</label><input id="website" name="website" tabindex="-1" autocomplete="off" />
+        </div>
+        <p class="form-note">
+          {
+            endpoint
+              ? 'Os dados são utilizados para responder ao seu pedido.'
+              : 'Este formulário prepara uma mensagem para enviar através do seu email. Pode revê-la antes de enviar.'
+          } Consulte a <a href="/privacidade">informação de privacidade</a>.
+        </p>
+        <button class="button" type="submit">{endpoint ? 'Enviar pedido' : 'Preparar email'}</button>
+        <p class="form-status" role="status" aria-live="polite"></p>
+        <noscript
+          ><p>
+            Para entrar em contacto, envie a sua ideia para <a href="mailto:sarapereira.arquitetura@hotmail.com"
+              >sarapereira.arquitetura@hotmail.com</a
+            > ou ligue para +351 913 993 165.
+          </p></noscript
+        >
+      </form><section class="email-review" hidden aria-labelledby="review-title" style="margin-top:25px">
+        <h3 id="review-title" tabindex="-1">A sua mensagem está preparada.</h3><p
+          class="form-note"
+          style="margin-top:15px"
+        >
+          Ainda não foi enviada. Abra o seu email ou copie a mensagem e envie-a para
+          sarapereira.arquitetura@hotmail.com.
+        </p><pre></pre><div class="actions">
+          <a class="button" data-mail-link href="mailto:sarapereira.arquitetura@hotmail.com">Abrir o meu email</a
+          ><button type="button" data-copy>Copiar mensagem</button>
+        </div><p class="form-status" data-copy-status role="status"></p>
+      </section>
+    </div>
+  </section>
+</Layout>
+<script>
+  const form = document.querySelector<HTMLFormElement>('.contact-form');
+  const review = document.querySelector<HTMLElement>('.email-review');
+  if (form && review) {
+    const serviceSelect = form.querySelector<HTMLSelectElement>('#service')!;
+    const selectedService = new URLSearchParams(location.search).get('servico');
+    if (selectedService && [...serviceSelect.options].some((option) => option.value === selectedService))
+      serviceSelect.value = selectedService;
+    const status = form.querySelector<HTMLElement>('[role="status"]')!;
+    const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+    let draft = '';
+    form.addEventListener('input', () => {
+      review.hidden = true;
+      status.textContent = '';
+    });
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!form.reportValidity()) return;
+      const data = new FormData(form);
+      if (data.get('website')) return;
+      const payload = Object.fromEntries([...data.entries()].map(([key, value]) => [key, String(value).trim()]));
+      if (!payload.name || !payload.location || payload.message.length < 10) {
+        status.textContent = 'Preencha o nome, a localidade e uma mensagem com pelo menos 10 caracteres.';
+        return;
+      }
+      draft = `Olá Sara,\n\n${payload.message}\n\nNome: ${payload.name}\nEmail: ${payload.email}\nTelefone: ${payload.phone || 'Não indicado'}\nLocalidade: ${payload.location}\nServiço: ${serviceSelect.selectedOptions[0].text}`;
+      const showDraft = () => {
+        review.querySelector('pre')!.textContent = draft;
+        review.querySelector<HTMLAnchorElement>('[data-mail-link]')!.href =
+          `mailto:sarapereira.arquitetura@hotmail.com?subject=${encodeURIComponent('Pedido de contacto - ' + payload.location)}&body=${encodeURIComponent(draft)}`;
+        review.hidden = false;
+        review.querySelector<HTMLElement>('#review-title')!.focus();
+      };
+      const endpoint = form.dataset.endpoint;
+      if (!endpoint) {
+        showDraft();
+        return;
+      }
+      submit.disabled = true;
+      status.textContent = 'A enviar o seu pedido…';
+      try {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+          signal: AbortSignal.timeout(15000),
+        });
+        const result = await response.json();
+        if (!response.ok || result.ok !== true) throw new Error('delivery');
+        status.textContent = 'O seu pedido foi enviado. Obrigada pelo contacto.';
+        form.reset();
+        review.hidden = true;
+        window.dispatchEvent(
+          new CustomEvent('site:contact', { detail: { action: 'form_success', page: location.pathname } })
+        );
+      } catch {
+        status.textContent = 'Não foi possível confirmar o envio. Pode enviar a mensagem diretamente pelo seu email.';
+        showDraft();
+      } finally {
+        submit.disabled = false;
+      }
+    });
+    review.querySelector('[data-copy]')!.addEventListener('click', async () => {
+      const status = review.querySelector<HTMLElement>('[data-copy-status]')!;
+      try {
+        await navigator.clipboard.writeText(draft);
+        status.textContent = 'Mensagem copiada. Cole-a no seu email para a enviar.';
+      } catch {
+        status.textContent = 'Não foi possível copiar automaticamente. Selecione e copie o texto acima.';
+      }
+    });
+  }
+</script>
